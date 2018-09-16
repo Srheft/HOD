@@ -10,7 +10,7 @@ import matplotlib.mlab as mlab
 import seaborn as sns
 import pandas as pd
 from scipy.stats import spearmanr
-from wpfunc4hod import wpfunc,wpfunc10c
+from wpfunc4hod import wpfunc,wpfunc10c,wpfunc20c
 from wp_mcmc_2pars import median_error
 from scipy.interpolate import interp1d
 
@@ -150,11 +150,11 @@ def stats(seed,nchain,pars,plots=False):
       
       
       
-      print 'wup1= ', wup1
-      print 'wlo1= ',wlo1
-      print 'wcen= ',wcen
-      print 'wup2= ', wup2
-      print 'wlo2= ',wlo2
+      #print 'wup1= ', wup1
+      #print 'wlo1= ',wlo1
+      #print 'wcen= ',wcen
+      #print 'wup2= ', wup2
+      #print 'wlo2= ',wlo2
       
       #sys.exit()
       #--------------------------------------------------  PLOTTING ---------------------------------------------------------  
@@ -163,7 +163,10 @@ def stats(seed,nchain,pars,plots=False):
       
       wparr4= wpfunc(1.55,6.46178e-6,rparr,np.mean(Mm),0.9,np.mean(delm), 0.01, 1000, 0.5, B=0)
       
-      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      rparr_10c = np.logspace(-1.95, log10(2.0),num=10, endpoint=True )
+      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      wp_20c = wpfunc20c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      print(wp_20c)
       
       dat2 = loadtxt('chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
       cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
@@ -221,7 +224,7 @@ def stats(seed,nchain,pars,plots=False):
       
       # Grid
       ax.grid(False)
-      print(len(rpd[0:len(cols)-1]),len(wup1),len(wlo1))
+      #print(len(rpd[0:len(cols)-1]),len(wup1),len(wlo1))
       
       #plots
       p1,= ax.plot(rparr,wparr,'b-', label="Best fit")
@@ -238,14 +241,14 @@ def stats(seed,nchain,pars,plots=False):
 
       #plt.plot(rparr[0:29],wparr2[0:29],'k-.')
 
-      p2,= ax.plot(rparr[0:29],wp_10c[0:29],'g--',label=r"$10 \times \bar c")
+      p2,= ax.plot(rparr_10c,wp_10c,'--',color="orange",label=r'$\rm 10 \times \bar c$')
+      p3,= ax.plot(rparr_10c,wp_20c,'-.',color="cyan",label=r'$\rm 20 \times \bar c$')
+      #p3,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
       
-      p3,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
-      
-      p4,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
+      #p4,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
 
 
-      lns = [p1, p2, p3, p4, d1, d2]
+      lns = [ p2, p3,p1]#, p4, d1, d2]
       ax.legend(handles=lns, loc='best')
       fig.savefig('Bestfit_wpmodel10c_2pars_fsat0.01_fsat1.0.eps',bbox_inches='tight')
 
