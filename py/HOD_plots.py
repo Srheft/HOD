@@ -163,9 +163,9 @@ def stats(seed,nchain,pars,plots=False):
       
       wparr4= wpfunc(1.55,6.46178e-6,rparr,np.mean(Mm),0.9,np.mean(delm), 0.01, 1000, 0.5, B=0)
       
-      #wp_10c_3pars = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
       
-      dat2 = loadtxt('chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
+      dat2 = loadtxt('chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
       cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
       naccept2 = dat2[:,0]
       fsat2 = dat2[:,1]
@@ -225,29 +225,29 @@ def stats(seed,nchain,pars,plots=False):
       
       #plots
       p1,= ax.plot(rparr,wparr,'b-', label="Best fit")
-      ax.fill_between(rpd,wup1,wlo1,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE')
+      #ax.fill_between(rpd,wup1,wlo1,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE')
       
       
-      ax.fill_between(rpd[0:len(cols)-1],wup2,wlo2,alpha=0.6, edgecolor='#CC4F1B', facecolor='#FF9848')
+      #ax.fill_between(rpd[0:len(cols)-1],wup2,wlo2,alpha=0.6, edgecolor='#CC4F1B', facecolor='#FF9848')
 
-      d1= ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='o',markersize=5.,color='magenta',fillstyle='none',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.,label='Kayo & Oguri 2012')  
-      ax.errorbar(rpd[wst2:wen2],wpd[wst2:wen2],yerr=err[wst2:wen2],linestyle='None',marker='o',markersize=5.,color='magenta',fillstyle='none',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.)  
+      d1= ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='s',markersize=5.,color='magenta',fillstyle='full',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.,label='Kayo & Oguri 2012')  
+      ax.errorbar(rpd[wst2:wen2],wpd[wst2:wen2],yerr=err[wst2:wen2],linestyle='None',marker='s',markersize=5.,color='magenta',fillstyle='full',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.)  
 
       d2=ax.errorbar(rpd[wen2:len(cols)-1],wpd[wen2:len(cols)-1],yerr=err[wen2:len(cols)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.,label='This work: KDE+eBOSS') 
       ax.errorbar(rpd[wKDE:wst2],wpd[wKDE:wst2],yerr=err[wKDE:wst2],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.) 
 
       #plt.plot(rparr[0:29],wparr2[0:29],'k-.')
 
-      #p2,= ax.plot(rparr[0:29],wp_10c_3pars[0:29],'g--',label=r"$10 x \bar c")
+      p2,= ax.plot(rparr[0:29],wp_10c[0:29],'g--',label=r"$10 \times \bar c")
       
-      p2,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
+      p3,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
       
-      p3,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
+      p4,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
 
 
-      lns = [p1, p2, p3, d1, d2]
+      lns = [p1, p2, p3, p4, d1, d2]
       ax.legend(handles=lns, loc='best')
-      fig.savefig('Bestfit_wpmodel_2pars_fsat0.01_fsat1.0.eps',bbox_inches='tight')
+      fig.savefig('Bestfit_wpmodel10c_2pars_fsat0.01_fsat1.0.eps',bbox_inches='tight')
 
 
       plt.show()
