@@ -66,7 +66,9 @@ def ukmcal10c(k,M,z,delta_vir,om0,M_star):
       rho_s =  M/(4.*pi*r_s**3.0*(ln(c+1.)-(c/(1.+c))))
       
       sumu =0.
+      
       dr = 0.001
+      
       for r in np.arange(1.e-5,r_vir,0.001):
          
           rho_rM = rho_s/((r/r_s)*(1+r/r_s)**2.)
@@ -74,6 +76,34 @@ def ukmcal10c(k,M,z,delta_vir,om0,M_star):
           sumu += (4*pi*r**2./M)*rho_rM*sin(k*r)*dr/(k*r)
           
       return sumu
+  
+#============================   u(k,m): is the fourier transform of the halo desity profile   =======================
+#
+#from Giocoli et al 2010
+
+def ukmcal20c(k,M,z,delta_vir,om0,M_star):
+          
+      c =20.* cbar(M,z,M_star)
+      
+      r_vir= rvir(om0,delta_vir,M) 
+      
+      r_s = rvir(om0,delta_vir,M) / c
+      
+      rho_s =  M/(4.*pi*r_s**3.0*(ln(c+1.)-(c/(1.+c))))
+      
+      sumu =0.
+      
+      dr = 0.001
+      
+      for r in np.arange(1.e-5,r_vir,0.001):
+         
+          rho_rM = rho_s/((r/r_s)*(1+r/r_s)**2.)
+          
+          sumu += (4*pi*r**2./M)*rho_rM*sin(k*r)*dr/(k*r)
+          
+      return sumu
+  
+  
 #===============================================================================
 #from Giocoli et al 2010
 
@@ -202,7 +232,7 @@ def wpfunc10c(z,nqobs,rparr,Mm,fsat,delm,kmin,kmax,dx, B=0):
     M_star,om0,delta_vir = 2.0e13,0.308,200.#,0.01,1000.
 
     b,fN,nqcalc = biasint2(z,nqobs,bctrl,delm,Mm)
-    
+     
     if B > 0:
         b = B
     
@@ -261,7 +291,79 @@ def wpfunc10c(z,nqobs,rparr,Mm,fsat,delm,kmin,kmax,dx, B=0):
     
     return wpcalc
 
+
+#================================================================================================    
+def wpfunc20c(z,nqobs,rparr,Mm,fsat,delm,kmin,kmax,dx, B=0):
+       
+    bctrl = 2.7
+    warnings.filterwarnings('ignore')
+    
+    e = ellipsoidalcollapse(omega=0.308,lamda=0.692,sig8=0.8137,gams=0.308*0.678,acc=1e-9,H0=67.8,omb=0.05)
+    
+    M_star,om0,delta_vir = 2.0e13,0.308,200.#,0.01,1000.
+
+    b,fN,nqcalc = biasint2(z,nqobs,bctrl,delm,Mm)
+     
+    if B > 0:
+        b = B
+    
+    wpcalc = []
+  
+    qmf = 'mVector_PLANCK-SMTz'+str(z)+'.txt' # quasar mass function
+    mall = loadtxt(qmf)
+    M = mall[:,0]
+    dnm = mall[:,5]
+    
+    p2k = []
+    p1k = []
+    dkp = 0.5
+    K   = np.logspace(log10(kmin),log10(kmax),300)
+  
+    for k in K:#np.logspace(log10(kmin),log10(kmax)-0.5,(kmax-kmin)/dkp):
+            
+       k0 = kmin
+            
+       p2k.append(b**2.*e.P(k,n=1.)) 
+       p1calc = 0.
+            
+       for p in range(len(M)-1):
+   
+                  Nm = fN*meanNM(M[p],delm,Mm)
+         
+                  uk0 = ukmcal20c(k0,M[p],z,delta_vir,om0,M_star)
+
+                  u = ukmcal20c(k,M[p],z,delta_vir,om0,M_star)/uk0
+                  
+                  dm =  M[p+1]/M[p]
+                  
+                  p1calc  += M[p]*ln(10)*dm*dnm[p]*(2.*fsat*(1.-fsat)*u+fsat**2.*abs(u)**2.)*Nm**2./nqobs**2.                   
+                  
+       p1k.append(p1calc)
+
+    p1k = np.asarray(p1k)
+    p2k = np.asarray(p2k)
+  
+    P1K = interpolate.interp1d(K, p1k)
+    P2K = interpolate.interp1d(K, p2k) 
+    
+
+    for r in range(len(rparr)):
+      
+       #dx = 0.3   
+       dkp = dx/rparr[r]
+      
+       wpcal = 0.
+       for k in np.arange(K[1], np.max(K), dkp):
+            
+             wpcal += k*dkp*j0(k*rparr[r])*(P1K(k)+P2K(k))/(2.*pi) 
+       wpcalc.append(wpcal)
+    
+    #wparr = np.asarray(wpcalc)
+    
+    return wpcalc
+
 #===========================================================================================
+
 
 def wpfuncc0(z,nqobs,rparr,Mm,fsat,delm,kmin,kmax,dx,c0, B=0):
        
