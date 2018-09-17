@@ -408,6 +408,9 @@ differences between assumptions and their potential effect on the best-fit
 parameters.    
 
 \section{Results and Discussion}\label{res}
+
+
+ We investigated the effect of relaxing $\Delta_{\rm m}$ as the third parameter for the HOD model in addition to $f_{\rm sat}$ and $\rm M_{m}$ and t was proven to have to significant effect in changing the best fit model.
 \begin{figure*}
     \centering
     \begin{subfigure}{
@@ -422,17 +425,16 @@ significant effect on the shape of the best fit model. The shaded envelope
 around the best fit model is the extent of the 1-sigma certainty for the shape 
 of the HOD model at each bin of the projected distance ($\rm r_p$). See 
 $\S$\ref{dat} for a description of the clustering measurement from two separate 
-sets of observations at $z \sim 1.5$ at small ($\rm kpc$) and large ($\rm Mpc$) 
-scales. The best-fit parameters in the three-parameter fit are : $\Delta_{\rm 
-m}= 1.10_{-0.31}^{+0.24}$, $\rm M_{m} = 7.87_{-3.75}^{+6.17} \times 10^{12}\, 
-h^{-1} M_{\odot}$, and $f_{\rm sat} = 0.051_{-0.018}^{+0.017}$ with reduced 
+sets of observations at $z \sim 1.55$ at small ($\rm kpc$) and large ($\rm Mpc$) 
+scales. The best-fit parameters in the two-parameter fit are : $\rm M_{m} = 1.43_{-0.23}^{+0.31} \times 10^{12}\, 
+h^{-1} M_{\odot}$, and $f_{\rm sat} = 0.024_{-0.0070}^{+0.0075}$ with reduced 
 $\chi^{2} = 1.023$ and for the two-parameter fit are : $\rm M_{m} = 
-6.97_{-1.22}^{+4.96} \times 10^{12}\, h^{-1} M_{\odot}$, and $f_{\rm sat} = 
-0.0289_{-0.0145}^{+0.0124}$ with reduced $\chi^{2} = 0.76$. Right: A 
+1.45_{-0.32}^{+0.25} \times 10^{12}\, h^{-1} M_{\odot}$, and $f_{\rm sat} = 
+0.016_{-0.0053}^{+0.0043}$ with reduced $\chi^{2} = 1.1$. Right: A 
 demonstration of how our HOD model changes when the satellite fraction moves to 
 higher or lower end of its limit. The green dotted-dashed curve shows the model 
 when $\rm f_{sat} = 1.0$ and the red dashed curve is the same model for $\rm 
-f_{sat} = 1.0$}\label{fig2:bfit}
+f_{sat} = 1.0$}\label{fig3:bfit}
     \end{subfigure}
 \end{figure*}
 
@@ -440,30 +442,14 @@ f_{sat} = 1.0$}\label{fig2:bfit}
 \section{Results and Discussion}\label{res}
 \begin{figure*}
     \centering
-    \begin{subfigure}{
-     \centering
-       \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel_2pars_1KDE.eps}
-       \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel_2pars_1KDE.eps}}
-    \caption{Left: Our HOD prediction of the projected correlation function that 
-best fits the observational data. The solid blue and red dashed lines are the 
-best fit model with three and two free parameters (see $\S$\ref{hodmod}). As is 
-clear from the figure, fixing or relaxing the $\Delta_{\rm m}$ has no 
-significant effect on the shape of the best fit model. The shaded envelope 
-around the best fit model is the extent of the 1-sigma certainty for the shape 
-of the HOD model at each bin of the projected distance ($\rm r_p$). See 
-$\S$\ref{dat} for a description of the clustering measurement from two separate 
-sets of observations at $z \sim 1.5$ at small ($\rm kpc$) and large ($\rm Mpc$) 
-scales. The best-fit parameters in the three-parameter fit are : $\Delta_{\rm 
-m}= 1.10_{-0.31}^{+0.24}$, $\rm M_{m} = 7.87_{-3.75}^{+6.17} \times 10^{12}\, 
-h^{-1} M_{\odot}$, and $f_{\rm sat} = 0.051_{-0.018}^{+0.017}$ with reduced 
-$\chi^{2} = 1.023$ and for the two-parameter fit are : $\rm M_{m} = 
-6.97_{-1.22}^{+4.96} \times 10^{12}\, h^{-1} M_{\odot}$, and $f_{\rm sat} = 
-0.0289_{-0.0145}^{+0.0124}$ with reduced $\chi^{2} = 0.76$. Right: A 
-demonstration of how our HOD model changes when the satellite fraction moves to 
-higher or lower end of its limit. The green dotted-dashed curve shows the model 
-when $\rm f_{sat} = 1.0$ and the red dashed curve is the same model for $\rm 
-f_{sat} = 1.0$}\label{fig2:bfit}
-    \end{subfigure}
+    %\begin{subfigure}{
+    % \centering
+       \includegraphics[angle=0,scale=0.6]{Bestfit_wpmodel10c_2pars_fsat0.01_fsat1.0.eps}
+       %\includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel_2pars_1KDE.eps}}
+    \caption{Our HOD prediction of the projected correlation function that 
+best fits the full-scale measurement (where all the shown data points participated in the bestfit determination). The solid blue line is the 
+best fit model as shown in the left-hand panel of Fig.\ref{fig3:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig4:diffc}
+   % \end{subfigure}
 \end{figure*}
 
 
@@ -517,10 +503,10 @@ f_{sat} = 1.0$}\label{fig2:bfit}
     \centering
         \begin{subfigure}{
         \centering
-        \includegraphics[angle=0,scale=0.5]{cornerplot_SEP18_4KDE.eps}
-        \includegraphics[angle=0,scale=0.5]{cornerplot_SEP18_ONLY1KDE.eps}}
-        \caption{Left: The result of our 3-parameter Monte-Carlo fit to the projected 
-two point correlation function over $ \sim 0.01-100 \, \rm h^{-1} Mpc$. Diagonal 
+        \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_4KDE.eps}
+        \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_ONLY1KDE.eps}}
+        \caption{Left: The result of the 2-parameter Monte-Carlo fit to the projected 
+two point correlation function over $ \sim 0.01-100 \, \rm h^{-1} Mpc$ for the model shown in the left-hand-side of Fig.\,\ref{fig3:bfit}. Diagonal 
 panels show the probability distribution functions (PDFs) of the fitting 
 parameters (i.e., satellite fraction ($f_{sat}$), minimum halo mass that hosts a 
 quasar ($M_{min}$), and the range of the halo masses that quasars occupy 
@@ -530,7 +516,7 @@ Marcov Chain explores the parameter space for each of the fitting parameters,
 each step of the chain takes a random walk with a randomly chosen step size and 
 calculates the likelihood of the new set of parameters based on the difference 
 between their deduced chi-squared and that of the previous set of chosen 
-parameters. Right: }\label{fig5:cor}
+parameters. Right: Same as the left panel for the fitting process shwon in the right-hand side of Fig.\,\ref{fig3:bfit}.}\label{fig5:cor}
        \end{subfigure}
 \end{figure*}
 
