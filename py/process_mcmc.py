@@ -42,10 +42,10 @@ def meanNM(M,delm,Mm):
 
 def stats(seed,nchain,pars,plots=False):
   
-  filename ='chain2_2pars_newdatapoints_ALL.dat' #'chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_Jul18.txt'#24 wp #'results_seed73_nchain3000_3pars.txt' #'results_seed'+str(seed)+'_nchain'+str(nchain)+'_'+str(pars)+'pars.txt'
+  filename ='chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_newdatapoints_ALL.dat' #'chain2_2pars_Jul18.txt'#24 wp #'results_seed73_nchain3000_3pars.txt' #'results_seed'+str(seed)+'_nchain'+str(nchain)+'_'+str(pars)+'pars.txt'
   print('Working with ', filename)
   dropouts = 0#40
-  cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
+  cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22"]#,"wp23","wp24"]
   dat = loadtxt(filename)#,dtype=<type 'float'>, comments='#',delimiter=',')#wpobs_err_4mcmc.dat
   naccept = dat[:,0]
   fsat = dat[:,1]
@@ -116,16 +116,16 @@ def stats(seed,nchain,pars,plots=False):
       wcen = []
       
       ##ONLY ONE KDE POINT-----------------------------------------------------------------------------------
-      #nwp=23  # how many total number of wp data points exits in the data file that had been used for the fit
-      #wKDE=4  # what element of the wp array is the KDE data point(s)?
-      #weBOSS = 9 #where the eBOSS stars
-      #wst,wen,wst2,wen2 = 0,4,5,9  #where the KO12 set starts and ends - before and after the KDE points
+      nwp=23  # how many total number of wp data points exits in the data file that had been used for the fit
+      wKDE=4  # what element of the wp array is the KDE data point(s)?
+      weBOSS = 9 #where the eBOSS stars
+      wst,wen,wst2,wen2 = 0,4,5,9  #where the KO12 set starts and ends - before and after the KDE points
       
       #ALL FOUR KDE POINTS-----------------------------------------------------------------------------------
-      nwp=25  # how many total number of wp data points exits in the data file that had been used for the fit
-      wKDE=3  # what element of the wp array is the KDE data point(s)?
-      weBOSS = 12 #where the eBOSS stars
-      wst,wen,wst2,wen2 = 0,3,7,11  #where the KO12 set starts and ends - before and after the KDE points
+      #nwp=25  # how many total number of wp data points exits in the data file that had been used for the fit
+      #wKDE=3  # what element of the wp array is the KDE data point(s)?
+      #weBOSS = 12 #where the eBOSS stars
+      #wst,wen,wst2,wen2 = 0,3,7,11  #where the KO12 set starts and ends - before and after the KDE points
      #-------------------------------------------------------------------------------------------------------
       
       
@@ -158,6 +158,13 @@ def stats(seed,nchain,pars,plots=False):
       
       #sys.exit()
       #--------------------------------------------------  PLOTTING ---------------------------------------------------------  
+      rparr_10c = np.logspace(-1.95, log10(2.0),num=10, endpoint=True )
+      
+      rparr_mpc = np.logspace(2.0, log10(100),num=10, endpoint=True )
+      
+      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+      wp_10c_mpc = wpfunc10c(1.55,6.46178e-6,rparr_mpc,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
 
       wparr3= wpfunc(1.55,6.46178e-6,rparr,np.mean(Mm),0.01,np.mean(delm), 0.01, 1000, 0.5, B=0)
       
@@ -166,7 +173,7 @@ def stats(seed,nchain,pars,plots=False):
       #wp_10c_3pars = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
       
       dat2 = loadtxt('chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
-      cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
+      cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22"]#,"wp23","wp24"]
       naccept2 = dat2[:,0]
       fsat2 = dat2[:,1]
       Mm2 = dat2[:,2]
@@ -179,7 +186,7 @@ def stats(seed,nchain,pars,plots=False):
       
       #wp_10c_2pars_highn = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm2),np.mean(fsat2),0.75, 0.01, 1000, 0.5, B=0)
       
-      obs = loadtxt('rp_wp_err_NOTALL_KO12.dat')#'rp_wp_err_ONLY1KDE.dat')
+      obs = loadtxt('rp_wp_err_ONLY1KDE.dat')#'rp_wp_err_NOTALL_KO12.dat')#
       rpd = obs[:,0]
       wpd = obs[:,1]
       err = obs[:,2]
@@ -225,13 +232,13 @@ def stats(seed,nchain,pars,plots=False):
       
       #plots
       p1,= ax.plot(rparr,wparr,'b-', label="Best fit")
-      ax.fill_between(rpd,wup1,wlo1,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE')
+      #ax.fill_between(rpd,wup1,wlo1,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE')
       
       
-      ax.fill_between(rpd[0:len(cols)-1],wup2,wlo2,alpha=0.6, edgecolor='#CC4F1B', facecolor='#FF9848')
+      #ax.fill_between(rpd[0:len(cols)-1],wup2,wlo2,alpha=0.6, edgecolor='#CC4F1B', facecolor='#FF9848')
 
-      d1= ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='o',markersize=5.,color='magenta',fillstyle='none',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.,label='Kayo & Oguri 2012')  
-      ax.errorbar(rpd[wst2:wen2],wpd[wst2:wen2],yerr=err[wst2:wen2],linestyle='None',marker='o',markersize=5.,color='magenta',fillstyle='none',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.)  
+      d1= ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='s',markersize=5.,color='magenta',fillstyle='full',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.,label='Kayo & Oguri 2012')  
+      ax.errorbar(rpd[wst2:wen2],wpd[wst2:wen2],yerr=err[wst2:wen2],linestyle='None',marker='s',markersize=5.,color='magenta',fillstyle='full',elinewidth=0.5,ecolor='magenta',capsize=2.0,capthick=1.)  
 
       d2=ax.errorbar(rpd[wen2:len(cols)-1],wpd[wen2:len(cols)-1],yerr=err[wen2:len(cols)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.,label='This work: KDE+eBOSS') 
       ax.errorbar(rpd[wKDE:wst2],wpd[wKDE:wst2],yerr=err[wKDE:wst2],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.) 
@@ -240,14 +247,16 @@ def stats(seed,nchain,pars,plots=False):
 
       #p2,= ax.plot(rparr[0:29],wp_10c_3pars[0:29],'g--',label=r"$10 x \bar c")
       
-      p2,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
-      
-      p3,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
+      #p2,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
+      p2,= ax.plot(rparr_10c,wp_10c,'--',color="orange",label=r'$\rm 10 \times \bar c$')
+      #p3,= ax.plot(rparr_10c,wp_20c,'-.',color="cyan",label=r'$\rm 20 \times \bar c$')
+ 
+      #p3,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
 
 
-      lns = [p1, p2, p3, d1, d2]
+      lns = [ p2,p1]# [p1, p2, p3, d1, d2]
       ax.legend(handles=lns, loc='best')
-      fig.savefig('Bestfit_wpmodel_2pars_fsat0.01_fsat1.0.eps',bbox_inches='tight')
+      fig.savefig('Bestfit_wpmodel1KDE_2pars_10c.eps',bbox_inches='tight')
 
 
       plt.show()
@@ -255,7 +264,7 @@ def stats(seed,nchain,pars,plots=False):
       sys.exit()
 
      ###+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      cols=["n","fsat", "Mm","dm","q","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
+      cols=["n","fsat", "Mm","dm","q","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22"]#,"wp23","wp24"]
       df = pd.DataFrame(dat, columns=cols)
       ###g= sns.jointplot(x="Mm", y="fsat", data=df,space = 0.,stat_func=None,marker='.',joint_kws={'color':'green'})#,xlabel=r'$\rm M[h^{-1}M_{\odot}]$',ylabel=r'$f_{sat}$',r"$\Delta_m$"
       ###g.set_axis_labels(r'$\rm M_{m}[h^{-1}M_{\odot}]$', r"$f_{sat}$")
@@ -330,7 +339,7 @@ def stats(seed,nchain,pars,plots=False):
  
       if (pars == 3):
             #seed,nchain = 10, 1000
-            dat2 = loadtxt('chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_Jul18.txt')#'results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt')
+            dat2 = loadtxt('chain2_2pars_new_ONLY1KDE_ALL.dat')#'chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_Jul18.txt')#'results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt')
             naccept = dat2[:,0]
             fsat = dat2[:,1]
             Mm = dat2[:,2]
@@ -347,7 +356,7 @@ def stats(seed,nchain,pars,plots=False):
             
       if (pars == 2) :
             
-            dat2 = loadtxt('chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_Jul18.txt')#'results_seed73_nchain3000_3pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_3pars.txt')
+            dat2 = loadtxt('chain2_2pars_new_ONLY1KDE_ALL.dat')#'chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_Jul18.txt')#'results_seed73_nchain3000_3pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_3pars.txt')
             naccept = dat2[:,0]
             fsat = dat2[:,1]
             Mm = dat2[:,2]

@@ -10,7 +10,7 @@ import matplotlib.mlab as mlab
 import seaborn as sns
 import pandas as pd
 from scipy.stats import spearmanr
-from wpfunc4hod import wpfunc,wpfunc10c,wpfunc20c
+from wpfunc4hod import wpfunc,wpfunc10c
 from wp_mcmc_2pars import median_error
 from scipy.interpolate import interp1d
 
@@ -42,7 +42,7 @@ def meanNM(M,delm,Mm):
 
 def stats(seed,nchain,pars,plots=False):
   
-  filename ='chain2_2pars_newdatapoints_ALL.dat' #'chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_Jul18.txt'#24 wp #'results_seed73_nchain3000_3pars.txt' #'results_seed'+str(seed)+'_nchain'+str(nchain)+'_'+str(pars)+'pars.txt'
+  filename ='chain2_2pars_newdatapoints_ALL.dat'#'chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_newdatapoints_ALL.dat' #'chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_Jul18.txt'#24 wp #'results_seed73_nchain3000_3pars.txt' #'results_seed'+str(seed)+'_nchain'+str(nchain)+'_'+str(pars)+'pars.txt'
   print('Working with ', filename)
   dropouts = 0#40
   cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
@@ -101,6 +101,8 @@ def stats(seed,nchain,pars,plots=False):
   
   if plots:
       
+      filename ='chain2_2pars_newdatapoints_ALL.dat'#'chain2_2pars_new_ONLY1KDE_ALL.dat'# #'chain2_2pars_new_ONLY1KDE_ALL.dat'#'chain2_2pars_Jul18.txt'#24 wp #'results_seed73_nchain3000_3pars.txt' #'results_seed'+str(seed)+'_nchain'+str(nchain)+'_'+str(pars)+'pars.txt'
+
       nmod = 35
       rparr = np.logspace(-1.95, log10(100),num=nmod, endpoint=True )
       
@@ -164,11 +166,20 @@ def stats(seed,nchain,pars,plots=False):
       wparr4= wpfunc(1.55,6.46178e-6,rparr,np.mean(Mm),0.9,np.mean(delm), 0.01, 1000, 0.5, B=0)
       
       rparr_10c = np.logspace(-1.95, log10(2.0),num=10, endpoint=True )
-      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
-      wp_20c = wpfunc20c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
-      print(wp_20c)
       
-      dat2 = loadtxt('chain2_2pars_newdatapoints_ALL.dat')#'chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
+      rparr_mpc = np.logspace(2.0, log10(100),num=10, endpoint=True )
+      
+      wp_10c = wpfunc10c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+      wp_10c_mpc = wpfunc10c(1.55,6.46178e-6,rparr_mpc,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+
+      #wp_20c = wpfunc20c(1.55,6.46178e-6,rparr_10c,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+      #wp_20c_mpc = wpfunc20c(1.55,6.46178e-6,rparr_mpc,np.mean(Mm),np.mean(fsat),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+   
+      
+      dat2 = loadtxt(filename)#'chain2_2pars_new_ONLY1KDE_ALL.dat')#loadtxt('results_seed73_nchain2000_2pars.txt')#'results_seed'+str(seed)+'_nchain'+str(nchain)+'_2pars.txt'
       cols=["n","fsat", "Mm","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18","wp19","wp20","wp21","wp22","wp23","wp24"]
       naccept2 = dat2[:,0]
       fsat2 = dat2[:,1]
@@ -182,7 +193,7 @@ def stats(seed,nchain,pars,plots=False):
       
       #wp_10c_2pars_highn = wpfunc10c(1.55,6.46178e-6,rparr,np.mean(Mm2),np.mean(fsat2),0.75, 0.01, 1000, 0.5, B=0)
       
-      obs = loadtxt('rp_wp_err_NOTALL_KO12.dat')#'rp_wp_err_ONLY1KDE.dat')
+      obs = loadtxt('rp_wp_err_ONLY1KDE.dat')#'rp_wp_err_NOTALL_KO12.dat')#'rp_wp_err_ONLY1KDE.dat')
       rpd = obs[:,0]
       wpd = obs[:,1]
       err = obs[:,2]
@@ -242,15 +253,15 @@ def stats(seed,nchain,pars,plots=False):
       #plt.plot(rparr[0:29],wparr2[0:29],'k-.')
 
       p2,= ax.plot(rparr_10c,wp_10c,'--',color="orange",label=r'$\rm 10 \times \bar c$')
-      p3,= ax.plot(rparr_10c,wp_20c,'-.',color="cyan",label=r'$\rm 20 \times \bar c$')
+      #p3,= ax.plot(rparr_10c,wp_20c,'-.',color="cyan",label=r'$\rm 20 \times \bar c$')
       #p3,= ax.plot(rparr,wparr4,'g-.',label=r"$f_{sat}=1.0$")
       
       #p4,= ax.plot(rparr,wparr3,'r--',label=r"$f_{sat}=0.01$")
 
 
-      lns = [ p2, p3,p1]#, p4, d1, d2]
+      lns = [ p2,p1]#, p4, d1, d2]
       ax.legend(handles=lns, loc='best')
-      fig.savefig('Bestfit_wpmodel10c_2pars_fsat0.01_fsat1.0.eps',bbox_inches='tight')
+      fig.savefig('Bestfit_wpmodel10c_2pars_4KDE.eps',bbox_inches='tight')
 
 
       plt.show()
