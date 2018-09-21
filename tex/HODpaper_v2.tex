@@ -31,7 +31,7 @@
 \title[Quasar HOD at $z \sim 1.5$]{A Halo Occupation Interpretation Of Quasars At $z\sim1.5$ Using Very Small Scale Clustering Information}
 % done like the title--> suggestions?
 % 
-\author[Eftekharzadeh et al.]{S. Eftekharzadeh$^{1,2}$,  A. D. Myers$^{2}$, E. Kourkchi$^{3}$, et al.\\
+\author[Eftekharzadeh et al.]{S. Eftekharzadeh$^{1,2}$,  A. D. Myers$^{1}$, E. Kourkchi$^{3}$, et al.\\
 \\
 $^{1}$ Department of Physics and Astronomy, University of Wyoming, 1000 University Ave., Laramie, WY 82071\\
 $^{2}$ Department of Physics, Southern Methodist University, 3215 Daniel Ave., Dallas, TX 75225\\
@@ -125,7 +125,7 @@ central quasars using Gaussians, ultimately expressing the HOD using two-to-thre
 parameters. On the other hand, \citet{zh07,ric12,ric13,sh13} use a model that combines a power-law with
 a Gaussian, which requires five-to-six fitting parameters. These choices, however, seem to have little
 power to constrain the one-halo term of the quasar HOD as \citep{ko12} and \citep{sh13} derive consistent 
-satellite fractions using their two different HOD parametrizations. Much of this degeneracy regarding the form of the quasar 
+satellite fractions using their two different HOD parameterizations. Much of this degeneracy regarding the form of the quasar 
 HOD is driven by sizable uncertainties in the parameters that are fit to model quasar clustering on small scales. It is likely, 
 then, that much larger samples of quasar pairs with small separations, or alternative approaches to deriving the 
 Mean Occupation Function of quasars \citep[e.g][]{Cha13}, will be needed to probe the overall statistics of how
@@ -133,7 +133,7 @@ quasars occupy individual halos.
 
 Despite the range of possible forms for the Mean Occupation Function of quasars, it remains important to provide empirical 
 constraints on the quasar HOD. Large surveys such as the {\em extended Baryon Oscillation Spectroscopic Survey} 
-\citep{my15,daw16} and surveys with the {\em Dark Energy Spectropic Instrument} \citep{DESI1,DESI2} are beginning to use 
+\citep{my15,daw16} and surveys with the {\em Dark Energy Spectroscopic Instrument} \citep{DESI1,DESI2} are beginning to use 
 quasars to constrain the cosmological world model at moderate redshift via redshift-space distortions and the Baryon 
 Acoustic Oscillation scale. Sophisticated simulations are required to model these cosmological constraints, which require 
 an assumed form for the quasar HOD on small scales \citep[e.g.][]{rod17}. Recently, we assembled by far the largest sample of 
@@ -147,7 +147,7 @@ scales \citep[e.g.][]{ko12,la17} to provide the best current constraints on the 
 This paper is structured as follows: $\S$\ref{dat} summarizes the properties of 
 the samples that are used in small and large scale clustering measurements. The measurements 
 themselves are detailed in $\S$\ref{cls}, the modeling approach and the chosen 
-parametrization is described in $\S$\ref{hodmod}, and 
+parameterization is described in $\S$\ref{hodmod}, and 
 
 We adopt a $\Lambda$CDM cosmological model 
 with matter and dark energy and baryon density densities of $\Omega_{m}=0.308$, 
@@ -186,9 +186,9 @@ For Mpc-scale clustering measurement, we used a large sample of spectroscopicall
 As eBOSS utilizes the same fiber-fed optical spectrograph as BOSS, the fibers can not get closer than $62 \arcsec$ in the spectroscopic plates execpt for the overlapping regions\citep{bl03}. This angular separation limit is equivalent to the comoving sparation of $0.37\, \rm h^{-1}Mpc$ at $z\sim 1.5$. For clustering measurement at small scales, it is more important to be complete as the interplay between the fiber collision radius and the {\it unknown} small-scale clustering of the targets is impossible to perfectly reconstruct. Although quasar samples are sparse enough that the number of colloded pairs is very small \citep[e.g.,][]{rod17}, we set the first bin of comoving separation at which we started to measure the two-point correlation function (2PCF), to be at $1.1 \, \rm h^{-1}Mpc$ \citep[see, e. g., ][for studies on the efficiency of fiber collision corrections at small scales]{gu12,ha17}. 
 
 
-We started with the lastest catalog of 116{,}866 eBOSS quasars (i.e., {\tt eboss\_v1.9f-QSO-N} at the time of this study- now publicly available at  DR14 release \citet{dr14}) and its associated $\sim 44 \times$ larger random catalog that considers the variation of the completeness pattern across the survey footprint and mocks the number density and redshift distribution of the targets in building units of the \citet[see][]{sw08b,la17}. A total of 88{,}764 of these quasars fall in the redshift limits of $0.8\lesssim z \lesssim 2.2$ from which 40{,}821 also have $g<20.85$. This is the brightless lower limit for the quasar pairs in the KDE-complete sample at small-scale. As implied earlier, maintaining similar redshift and luminosity range for quasars in both samples would guarantee that our clustering measurement is measured within one class of quasars \citep[see, e.g., ][for discussions on whether quasars from different luminosity classes posses different clustering properties]{she07,All11,sh13,All14,ef15,mg16}.     
+We started with the lastest catalog of 116{,}866 eBOSS quasars (i.e., {\tt eboss\_v1.9f-QSO-N} at the time of this study- now publicly available at  DR14 release \citet{dr14}) and its associated $\sim 44 \times$ larger random catalog that considers the variation of the completeness pattern across the survey footprint and mocks the number density and redshift distribution of the targets in building units of the \citet[see][]{sw08b,la17}. A total of 88{,}764 of these quasars fall in the redshift limits of $0.8\lesssim z \lesssim 2.2$ from which 40{,}821 also have $g<20.85$. This is the brightness lower limit for the quasar pairs in the KDE-complete sample at small-scale. As implied earlier, maintaining similar redshift and luminosity range for quasars in both samples would guarantee that our clustering measurement is measured within one class of quasars \citep[see, e.g., ][for discussions on whether quasars from different luminosity classes posses different clustering properties]{she07,All11,sh13,All14,ef15,mg16}.     
 
-An important factor in combining the clustering measurement from two independently compiled samples is to ascertain that they have similar redshift distributions and span over the same range of luminosities. We match the distributions by {\it downsampling} the much larger eBOSS quasar sample in over populated redshift bins to that of the KDE-complete sample of close pairs by first determining the over population at each bin of redshift and then randomly removing the {\it extra} number of targets to be removed from that redshift bin. Fig. \ref{fig1:nz-cdf} shows the normalized redshift distribution of the KDE-complete sample of ($<7 \arcsec$) pairs and the ``downsampled'' and matched redshift distribution of the eBOSS quasars. The left-hand-side of this figure illustrates the comulative probability distribution function (CDF) of KDE and eBOSS samples. The two-sample Kolmogorov-Smirnov test shows that the probability that these two samples are drawn from the same distribution is $86\%$. The errors on the redshift distribution of the KDE sample are poinsson error only to show that the match is well within the one-sigma uncertainty. 
+An important factor in combining the clustering measurement from two independently compiled samples is to ascertain that they have similar redshift distributions and span over the same range of luminosities. We match the distributions by {\it downsampling} the much larger eBOSS quasar sample in over populated redshift bins to that of the KDE-complete sample of close pairs by first determining the over population at each bin of redshift and then randomly removing the {\it extra} number of targets to be removed from that redshift bin. Fig. \ref{fig1:nz-cdf} shows the normalized redshift distribution of the KDE-complete sample of ($<7 \arcsec$) pairs and the ``downsampled'' and matched redshift distribution of the eBOSS quasars. The left-hand-side of this figure illustrates the cumulative probability distribution function (CDF) of KDE and eBOSS samples. The two-sample Kolmogorov-Smirnov test shows that the probability that these two samples are drawn from the same distribution is $86\%$. The errors on the redshift distribution of the KDE sample are Poisson error only to show that the match is well within the one-sigma uncertainty. 
  
  Table \ref{tab:dndz} lists the matched redshift distributions of KDE-complete sample of 40 pairs and 33{,}245 eBOSS $g<20.85$ quasars. 
   
@@ -225,7 +225,7 @@ Given the considerations discussed in \S\ref{dat}, the final samples became suit
 
 
 \subsection{kpc-scale clustering}\label{kpcls}
-The method for measuring the volume-averaged correlation function in real space with sparse samples of close pairs is discussed in detail in \citet{ef17} and \citet{Hen06}. Fig. 2 of \citet{ef17} shows how the sample of 47 pairs are positioned in the redshit-physical separation plane. We apply the redshift cut of $0.8 \lesssim z \lesssim 2.2$ and count the remaining pairs in linearly shifted bins of separation (i.e., to the comving coordinates). This constitutes the origin of the closely separated bins in the measured correlation function shown in Fig.\ref{fig3:}
+The method for measuring the volume-averaged correlation function in real space with sparse samples of close pairs is discussed in detail in \citet{ef17} and \citet{Hen06}. Fig. 2 of \citet{ef17} shows how the sample of 47 pairs are positioned in the redshift-physical separation plane. We apply the redshift cut of $0.8 \lesssim z \lesssim 2.2$ and count the remaining pairs in linearly shifted bins of separation (i.e., to the comoving coordinates). This constitutes the origin of the closely separated bins in the measured correlation function shown in Fig.\ref{fig3:}
 
 \begin{figure*}
     \centering
@@ -233,7 +233,7 @@ The method for measuring the volume-averaged correlation function in real space 
         \centering
         \includegraphics[angle=0,scale=0.29]{NEWmatched_Nz.eps}
         \includegraphics[angle=0,scale=0.29]{KDE_geBOSS_CDFs.eps}}
-        \caption{Right: Normalized redshift distribution of the KDE-complete sample of ($<7 \arcsec$) pairs in dashed red and the ``downsampled'' redshift distribution of the eBOSS quasars in solid blue. The ``down sampling'' process was performed due to the need to match the redshift distribution of the eBOSS quasars to be able to use their co-joint clustering measurements for a halo occupation interpretation (see $\S$\ref{dat}). Left: the comulative distribution function (CDF) of KDE and eBOSS samples. The Kolmogorov-Smirnov test shows that the probability that these two samples are drawn from the same distribution is $86\%$.} \label{fig1:nz-cdf}
+        \caption{Right: Normalized redshift distribution of the KDE-complete sample of ($<7 \arcsec$) pairs in dashed red and the ``downsampled'' redshift distribution of the eBOSS quasars in solid blue. The ``down sampling'' process was performed due to the need to match the redshift distribution of the eBOSS quasars to be able to use their co-joint clustering measurements for a halo occupation interpretation (see $\S$\ref{dat}). Left: the cumulative distribution function (CDF) of KDE and eBOSS samples. The Kolmogorov-Smirnov test shows that the probability that these two samples are drawn from the same distribution is $86\%$.} \label{fig1:nz-cdf}
         \end{subfigure}
 
 
@@ -443,10 +443,10 @@ f_{sat} = 1.0$}\label{fig3:bfit}
     \centering
     \begin{subfigure}{
      \centering
-       \includegraphics[angle=0,scale=0.6]{Bestfit_bestfit_wp10c_2pars_4KDE.eps}
+       \includegraphics[angle=0,scale=0.55]{Bestfit_bestfit_wp10c_2pars_4KDE.eps}
        \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel1KDE_2pars_10c.eps}}
     \caption{Our HOD prediction of the projected correlation function that 
-best fits the full-scale measurement (where all the shown data points participated in the bestfit determination). The solid blue line is the 
+best fits the full-scale measurement (where all the shown data points participated in the best fit determination). The solid blue line is the 
 best fit model as shown in the left-hand panel of Fig.\ref{fig3:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig4:diffc}
     \end{subfigure}
 \end{figure*}
@@ -515,7 +515,7 @@ Marcov Chain explores the parameter space for each of the fitting parameters,
 each step of the chain takes a random walk with a randomly chosen step size and 
 calculates the likelihood of the new set of parameters based on the difference 
 between their deduced chi-squared and that of the previous set of chosen 
-parameters. Right: Same as the left panel for the fitting process shwon in the right-hand side of Fig.\,\ref{fig3:bfit}.}\label{fig5:cor}
+parameters. Right: Same as the left panel for the fitting process shown in the right-hand side of Fig.\,\ref{fig3:bfit}.}\label{fig5:cor}
        \end{subfigure}
 \end{figure*}
 
@@ -537,7 +537,7 @@ presence of the observationally challenging bins at kpc scales \citep[see, ][for
 a proposed alternative]{sta11}.
 
 In recent years, an increasing number of reports on the persistent degeneracies 
-between the best-fit parameters of widely used HOD formalisms (initially 
+between the best-fit parameters of widely used HOD formalism (initially 
 designed for local AGNs) 
 
  These studies differ from this work (as well as \citep{ko12}) in two 
