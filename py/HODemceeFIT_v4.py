@@ -30,18 +30,7 @@ import warnings
 class ellipsoidalcollapse:
 
     def __init__(self,omega=0.307,lamda=0.693,sig8=0.8137,gams=0.21,acc=1e-9,H0=67.8,omb=0.045):
-        """Sheth, Mo & Tormen (2001) ellipsoidal collapse model
-
-        INPUTS: Dark Matter halo mass, omega_matter_0, omega_lamda_0,
-        sigma_8, power spectrum shape, integration accuracies, Hubble
-        constant (written with dimensions to avoid confusion with
-        little h as we only use it for Eisenstein & Hu models) and the
-        fraction of the total universe in baryons.
-
-        v1.0 Adam D. Myers: August 2006
-        """
-#        self.T = self.TEBW # choose a transfer function
-
+ 
 # Eisenstein and Hu only T(k) parameters below
         self.brat = omb/float(omega)
         self.hspec = H0/100.
@@ -307,7 +296,7 @@ def biasint(z,nqobs,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #ADM the log interval in mass for dlog10M in the integrator
+    #log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
@@ -365,7 +354,7 @@ def biasint2(z,nqobs,bctrl,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #ADM the log interval in mass for dlog10M in the integrator
+    #log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
