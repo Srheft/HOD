@@ -1,5 +1,6 @@
 # HOD
-Note to viewers and potential users
+Note to viewers and potential users:
+
 There are a number of supplement codes for cosmology calculation, ect that are called into some of the codes. Those supplements are not entirely created by me and so I can not share them publically here. Please contact me if you wanted to run these codes as they are.  
 
 
