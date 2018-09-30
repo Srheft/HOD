@@ -28,7 +28,7 @@
 \begin{document}
 %latex HODpaper_v2.tex ; bibtex HODpaper_v2 ; latex HODpaper_v2.tex ;  latex HODpaper_v2.tex ;dvips HODpaper_v2.dvi ; ps2pdf HODpaper_v2.ps
 
-\title[Quasar HOD at $z \sim 1.5$]{A Halo Occupation Interpretation Of Quasars At $z\sim1.5$ Using Very Small Scale Clustering Information}
+\title[Quasar HOD at $z \sim 1.5$]{A Halo Occupation Interpretation Of Quasars At $z\sim1.55$ Using Very Small Scale Clustering Information}
 % done like the title--> suggestions?
 % 
 \author[Eftekharzadeh et al.]{S. Eftekharzadeh$^{1,2}$,  A. D. Myers$^{1}$, E. Kourkchi$^{3}$, et al.\\
@@ -288,7 +288,7 @@ confirmed close pairs, converting $\rm \bar W_p$ to their equivalent $w_p(r_p)$ 
 \begin{equation}
  \bar W_p(r_p) \sim \frac{1}{N_{qso}} \int_{z_{min}}^{z_{max}} dz \frac{dV_c}{dz} n(z) \frac{1}{v_z} \int_{0}^{v_z} d\pi \xi(\sqrt{\left(r_p^2+\pi^2\right)},z),
 \end{equation}
-where $n(z)$ is the comoving number density of quasars at bins of redshift, $v_z \equiv v_{max}(1+z)/H(z)$, $v_{max}= 2000 \rm s^{-1}km$, $H(z)$ is the expansion rate at redshift z, $N_{qso} \sim \int_{z_{min}}^{z_{max}} dz \frac{dV_c}{dz} n(z)$ and $\int_{0}^{v_z} d\pi \xi(\sqrt{\left(r_p^2+\pi^2 \right)},z)$ is essentially $w_p(r_p, v_z \rightarrow \infty)$. Described by numerous clustering works, the correlation function $\xi(r)$ is best described by a two-parameter power-law $(\frac{r}{r_0})^{-\gamma}$ with $\gamma \sim -2.0$ and $r_0=5.0 \, h^{-1} Mpc$ from \citet{ef17}. Similar approximation with different numerical approach has been used in \citet{ko12} for $ \bar W_p(r_p) \rightarrow w_p(r_p)$ conversion.
+where $n(z)$ is the comoving number density of quasars at bins of redshift, $v_z \equiv v_{max}(1+z)/H(z)$, $v_{max}= 2000 \, \rm s^{-1}km$, $\rm H(z)$ is the expansion rate at redshift z, $N_{qso} \sim \int_{z_{min}}^{z_{max}} dz \frac{dV_c}{dz} n(z)$ and $\int_{0}^{v_z} d\pi \xi(\sqrt{\left(r_p^2+\pi^2 \right)},z)$ is essentially $w_p(r_p, v_z \rightarrow \infty)$. Described by numerous clustering works, the correlation function $\xi(r)$ is best described by a two-parameter power-law $(\frac{r}{r_0})^{-\gamma}$ with $\gamma \sim -2.0$ and $r_0=5.0 \, h^{-1} Mpc$ from \citet{ef17}. Similar approximation with different numerical approach has been used in \citet{ko12} for $ \bar W_p(r_p) \rightarrow w_p(r_p)$ conversion.
 
 \subsection{Mpc-scale clustering}\label{mpcls}
 
@@ -341,6 +341,9 @@ Where the linear matter power spectrum, $P_{lin}$ is computed using
 \citet{eh99}'s fitting form with our chosen cosmological parameters and $b$ is 
 the bias parameter that can be modeled as:
 
+\begin{equation}
+b = \frac{\int b_h(M) \frac{dn}{dM} dM}{\int \frac{dn}{dM} dM}
+\end{equation}
 % \begin{equation}
 % b = \frac{1}{n_q} \int b_h(M) \langle N(M) \rangle \frac{dn}{dM} dM
 % \end{equation}
@@ -352,37 +355,21 @@ the bias parameter that can be modeled as:
     \centering
     \begin{subfigure}{
      \centering
-       \includegraphics[angle=0,scale=0.55]{Bestfit_bestfit_2pars_4KDE.eps}
-       \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel_2pars_1KDE.eps}}
+       \includegraphics[angle=0,scale=0.6]{Bestfit_bestfit_2pars_4KDE.eps}
+       \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_4KDE.eps}}
     \caption{Left: Our HOD prediction of the projected correlation function that 
-best fits the observational data. The solid blue and red dashed lines are the 
-best fit model with three and two free parameters (see $\S$\ref{hodmod}). As is 
-clear from the figure, fixing or relaxing the $\Delta_{\rm m}$ has no 
-significant effect on the shape of the best fit model. The shaded envelope 
-around the best fit model is the extent of the 1-sigma certainty for the shape 
-of the HOD model at each bin of the projected distance ($\rm r_p$). See 
+best fits the observational data. The solid blue curve is the bestfit and the red dashed and green dotted dashed lines are the model with best fit $M_{m}$ but $f_{sat}=0.01$ and $f_{sat}=1.0$. We verified that relaxing $\Delta_{\rm m}$, as the third parameter, has no 
+significant effect on the shape of the best-fit model. The best fit value for $\Delta_{\rm m}$ stays cosistent with 0.75 that was derived independently by \citet{ko12}. The shaded envelope 
+around the best fit model is the extent of the 2-sigma certainty for the shape 
+of the HOD model at each bin of the projected distance ($\rm r_p$). All the data points depicted here have participated in the fit. See 
 $\S$\ref{dat} for a description of the clustering measurement from two separate 
 sets of observations at $z \sim 1.55$ at small ($\rm kpc$) and large ($\rm Mpc$) 
-scales. The best-fit parameters in the two-parameter fit are : $\rm M_{m} = 1.43_{-0.23}^{+0.31} \times 10^{12}\, 
+scales. The best-fit parameters in the two-parameter fit are: $\rm M_{m} = 1.43_{-0.23}^{+0.31} \times 10^{12}\, 
 h^{-1} M_{\odot}$, and $f_{\rm sat} = 0.024_{-0.0070}^{+0.0075}$ with reduced 
 $\chi^{2} = 1.023$ and for the two-parameter fit are : $\rm M_{m} = 
 1.45_{-0.32}^{+0.25} \times 10^{12}\, h^{-1} M_{\odot}$, and $f_{\rm sat} = 
-0.016_{-0.0053}^{+0.0043}$ with reduced $\chi^{2} = 1.1$. Right: A 
-demonstration of how our HOD model changes when the satellite fraction moves to 
-higher or lower end of its limit. The green dotted-dashed curve shows the model 
-when $\rm f_{sat} = 1.0$ and the red dashed curve is the same model for $\rm 
-f_{sat} = 1.0$}\label{fig3:bfit}
-    \end{subfigure}
-\end{figure*}
-
-\begin{figure*}
-    \centering
-        \begin{subfigure}{
-        \centering
-        \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_4KDE.eps}
-        \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_ONLY1KDE.eps}}
-        \caption{Left: The result of the 2-parameter Monte-Carlo fit to the projected 
-two point correlation function over $ \sim 0.01-100 \, \rm h^{-1} Mpc$ for the model shown in the left-hand-side of Fig.\,\ref{fig3:bfit}. Diagonal 
+0.016_{-0.0053}^{+0.0043}$ with reduced $\chi^{2} = 1.1$. Right: The result of the 2-parameter Monte-Carlo fit to the projected 
+two point correlation function over $ \sim 0.01-100 \, \rm h^{-1} Mpc$ for the model shown in the left. Diagonal 
 panels show the probability distribution functions (PDFs) of the fitting 
 parameters (i.e., satellite fraction ($f_{sat}$), minimum halo mass that hosts a 
 quasar ($M_{min}$), and the range of the halo masses that quasars occupy 
@@ -392,14 +379,26 @@ Marcov Chain explores the parameter space for each of the fitting parameters,
 each step of the chain takes a random walk with a randomly chosen step size and 
 calculates the likelihood of the new set of parameters based on the difference 
 between their deduced chi-squared and that of the previous set of chosen 
-parameters. Right: Same as the left panel for the fitting process shown in the right-hand side of Fig.\,\ref{fig3:bfit}.}\label{fig5:cor}
+parameters.}\label{fig3:bfit}
+    \end{subfigure}
+\end{figure*}
+
+\begin{figure*}
+    \centering
+        \begin{subfigure}{
+        \centering
+        \includegraphics[angle=0,scale=0.6]{Bestfit_wpmodel_2pars_1KDE.eps}
+        \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_ONLY1KDE.eps}}
+        \caption{Left: A 
+demonstration of how our HOD model changes when the satellite fraction moves to 
+higher or lower end of its limit. The green dotted-dashed curve shows the model 
+when $\rm f_{sat} = 1.0$ and the red dashed curve is the same model for $\rm 
+f_{sat} = 1.0$  Right: Same as the right panel for the fitting process shown in the right-hand side of Fig.\,\ref{fig3:bfit}.}\label{fig4:cor}
        \end{subfigure}
 \end{figure*}
 
 
-\begin{equation}
-b = \frac{\int b_h(M) \frac{dn}{dM} dM}{\int \frac{dn}{dM} dM}
-\end{equation}
+
 
 Modeling the Halo Occupation Distribution is essentially estimating the mean 
 number of quasars in individual haloes by modeling their distribution as a 
@@ -476,75 +475,29 @@ parameters.
 
 
 
+% \begin{figure*}
+%     \centering
+%     \begin{subfigure}{
+%      \centering
+%        \includegraphics[angle=0,scale=0.55]{Bestfit_bestfit_wp10c_2pars_4KDE.eps}
+%        \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel1KDE_2pars_10c.eps}}
+%     \caption{Our HOD prediction of the projected correlation function that 
+% best fits the full-scale measurement (where all the shown data points participated in the best fit determination). The dashed blue line is the 
+% best fit model as shown in the left-hand panel of Fig.\ref{fig3:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig4:10c}
+%     \end{subfigure}
+% \end{figure*}
+
 \begin{figure*}
     \centering
     \begin{subfigure}{
      \centering
-       \includegraphics[angle=0,scale=0.55]{Bestfit_bestfit_wp10c_2pars_4KDE.eps}
-       \includegraphics[angle=0,scale=0.55]{Bestfit_wpmodel1KDE_2pars_10c.eps}}
+       \includegraphics[angle=0,scale=0.6]{Bestfit_with_wp10c_2pars_1KDE.eps}
+       \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_1KDE_10c.eps}}
     \caption{Our HOD prediction of the projected correlation function that 
 best fits the full-scale measurement (where all the shown data points participated in the best fit determination). The solid blue line is the 
-best fit model as shown in the left-hand panel of Fig.\ref{fig3:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig4:10c}
+best fit model as shown in the left-hand panel of Fig.\ref{fig4:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig5:10c}
     \end{subfigure}
 \end{figure*}
-
-\begin{figure*}
-    \centering
-    \begin{subfigure}{
-     \centering
-       \includegraphics[angle=0,scale=0.55]{Bestfit_with_wp10c_2pars_1KDE.eps}
-       \includegraphics[angle=0,scale=0.55]{cornerplot_SEP18_1KDE_10c.eps}}
-    \caption{Our HOD prediction of the projected correlation function that 
-best fits the full-scale measurement (where all the shown data points participated in the best fit determination). The solid blue line is the 
-best fit model as shown in the left-hand panel of Fig.\ref{fig3:bfit}. The orange dashed and the cyan dotted dashed lines are the HOD model with the best-fit $\rm f_{sat}$ and $\rm M_{m}$ but with 10 and 20 times larger concentration parameters than the best-fit model, respectively. }\label{fig4:10c}
-    \end{subfigure}
-\end{figure*}
-
-% \begin{figure*}
-%     \centering
-%     \begin{subfigure}{
-%         \centering
-%         \includegraphics[angle=0,scale=0.5]{bestfit_Nm.eps}
-%         \includegraphics[angle=0,scale=0.5]{bestfit_fsatNm.eps}}
-%         \caption{Left: A comparison between the starting $\langle N(M)\rangle$ 
-% for the fitting procedure with $\Delta_{\rm m} = 0.75$, $\rm M_{m} = 1.33 \times 
-% 10^{13}\, h^{-1} M_{\odot}$ and $f_{sat} = 0.054$ shown as the dashed red curve 
-% and the best fit $\langle N(M)\rangle$ with two fitting parameters of (green 
-% dotted-dashed) and three fitting parameters (blue solid curve).     Right: 
-% }\label{fig2:NMs}
-%     \end{subfigure}
-% \end{figure*}
-% 
-% \begin{figure*}
-%     \centering
-%     \begin{subfigure}{
-%         \centering
-%         \includegraphics[angle=0,scale=0.5]{contour_Mm_fsat.eps}
-%         \includegraphics[angle=0,scale=0.5]{contour_scatter_Mm_fsat.eps}}
-%         \caption{Left:      Right: }\label{fig3:par}
-%     \end{subfigure}
-% \end{figure*}
-% 
-% \begin{figure*}
-%     \centering
-%     \begin{subfigure}{
-%         \centering
-%         \includegraphics[angle=0,scale=0.5]{contour_dm_fsat.eps}
-%         \includegraphics[angle=0,scale=0.5]{scatter_Mm_dm.eps}}
-%         \caption{Left:      Right: }\label{fig4:pars}
-%     \end{subfigure}
-% \end{figure*}
-
-
-% \begin{figure*}
-%     \centering
-%     
-%         \includegraphics[angle=0,scale=0.45]{sortedcorner.eps}
-%         
-%         \caption{ }\label{fig5:cor}
-% \end{figure*}
-
-
 
 
 
