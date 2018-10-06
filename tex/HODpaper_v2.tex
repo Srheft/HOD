@@ -263,7 +263,7 @@ from eBOSS. All the targets used in this sample are publicly available as part
 of the 14th data release of the Sloan Digital Sky Survey \citep[DR14; ][]{dr14}. 
 For consistency, we applied the same magnitude and redshift limits to both 
 samples. 
-As is evident in this figure, both sets of pairs from the small and large angular separations 
+As is evident in Fig. \ref{fig2:gz}, both sets of pairs from the small and large angular separations 
 exhibit similar distributions in magnitude and redshift. 
 The angular separations of the pair members are translated into the 
 comoving transverse separation at the average redshift of both samples ($z\sim 
@@ -281,7 +281,7 @@ real-space correlation function of quasars at $z\sim 1.5$.  Here we summarize
 the steps taken in clustering measurements at kpc and Mpc-scales. 
 
 \subsection{kpc-scale clustering}\label{kpcls}
-The adapted method for measuring the volume-averaged correlation function in real space with sparse samples of close pairs is discussed in \citet{ef17} and \citet{Hen06}. Fig. 2 of \citet{ef17} shows how the sample of 47 pairs with angular separations of $<7\arcsec$ constitute the complete sample and how they are positioned in the redshift-physical separation plane. We apply the redshift cut of $0.8 \lesssim z \lesssim 2.2$ that limits the eBOSS sample and count the remaining pairs in the smaller box and still in the same four bind of separation but now in comoving coordinates. This constitutes the origin of four bins of separation distance for the 44 pairs in the measured correlation function shown in Fig.\ref{fig3:bfit}. Multiple studies have argued the independency of the pair counts in small scales. We thus adopt a Poisson error statistics from \citet{geh88} for the uncertainty of the measured $\rm \bar W_p$ and later translate them to errors for $w_p(r_p)$. The volume averaged correlation function was measured for the 6, 11,12 and 13 pairs at four bins of separation at the comoving average separation of 48, 58, 70 and 85 $\rm h^{-1} kpc$ respectively. Similarly to the the measurement presented in \citet{ef17}, we also measure $\rm \bar W_p$ for the full bin of 43.4 to 92.3 $\rm h^{-1} kpc$ (shown as single bin at $\bar r_p = 67.8 \, \rm h^{-1} kpc$ in the right-hand-side panel of Fig.\,\ref{fig3:bfit}). The process through which the {\it expected} Quasar-Random pairs, $\langle QR \rangle$, is calculated has been discussed in detail in \citet{ef17}. 
+The adapted method for measuring the volume-averaged correlation function in real space with sparse samples of close pairs is discussed in \citet{ef17} and \citet{Hen06}. Fig. 2 of \citet{ef17} shows how the sample of 47 pairs with angular separations of $<7\arcsec$ constitute the complete sample and how they are positioned in the redshift-physical separation plane. We apply the redshift cut of $0.8 \lesssim z \lesssim 2.2$ that limits the eBOSS sample and count the remaining pairs in the smaller box and still in the same four bind of separation but now in comoving coordinates. This constitutes the origin of four bins of separation distance for the 44 pairs in the measured correlation function shown in Fig.\ref{fig3:bfit}. Multiple studies have argued the independency of the pair counts in small scales. We thus adopt a Poisson error statistics from \citet{geh88} for the uncertainty of the measured $\rm \bar W_p$ and later translate them to errors for $w_p(r_p)$. The volume averaged correlation function was measured for the 6, 13,12 and 13 pairs at four bins of separation at the comoving average separation of 48, 58, 70 and 85 $\rm h^{-1} kpc$ respectively. Similarly to the the measurement presented in \citet{ef17}, we also measure $\rm \bar W_p$ for the full bin of 43.4 to 92.3 $\rm h^{-1} kpc$ (shown as single bin at $\bar r_p = 67.8 \, \rm h^{-1} kpc$ in the right-hand-side panel of Fig.\,\ref{fig3:bfit}). The process through which the {\it expected} Quasar-Random pairs, $\langle QR \rangle$, is calculated has been discussed in detail in \citet{ef17}. 
 
 While the reason to divert from conventional definition of the projected 
 correlation function (i.e., $w_p(r_p)=2\int_{0}^{\infty} d\pi \xi(\pi, r_p)$), to a volume-averaged correlation function, 
@@ -297,22 +297,21 @@ where $n(z)$ is the comoving number density of quasars at bins of redshift, $v_z
 
 We calculate the Mpc-scale section of the correlation function using the 
 downsampled eBOSS quasars that matches the number density of the parent sample 
-with which the kpc-scale correlation function is measured. The corresponding 
+with which the kpc-scale correlation function is measured ($\sim6.462 \times 10^{-6} \, \rm h^3 Mpc^{-3}$). The corresponding 
 random catalog for the ``downsampled'' quasar catalog is created by keeping 
-track of the fraction of objects that are brighter than g=20.85 in each bin of 
-redshift ($f$) and then for each object in the original random catalog and its 
-assigned redshift, we pick a random number between 0 and 1 and if that random 
-number is less than $f$, then that random object retain in the random catalog 
-otherwise, discarded. We calculate $w_p(r_p)$  via its conventional definition by \citet{ls93}. 
+track of the fraction of objects that are brighter than $g=20.85$ in each bin of 
+redshift ($f$). For each object in the original random catalog and its 
+assigned redshift, if a random number between 0 and 1 is less than $f$, then that object retains in the random catalog,
+otherwise it will be discarded. We calculate $w_p(r_p)$  via its conventional definition by \citet{ls93}. 
 As discussed in $\S$\ref{ldat}, the quasars participating in the Quasar-Random and Quasar-Quasar pair counts, will have the associated weight $w_{qso}$. 
-the measured correlation function in bins of comoving separation across $1<r_p<100 \, \rm h^{-1} Mpc$ are shown with filled black circles in Fig.\, \ref{fig3:bfit} and Fig.\, \ref{fig5:10c}. The error bars are calculated through a jackknife resampling \citep[see, e.g., eqn. 4 of][]{ef15}.  
+the measured correlation function in bins of comoving separation across $1<r_p<100 \, \rm h^{-1} Mpc$ are shown with filled black circles in Fig.\, \ref{fig3:bfit}, Fig.\, \ref{fig4:cor} and Fig.\,\ref{fig5:10c}. The error bars are calculated through a jackknife resampling \citep[see, e.g., eqn. 4 of][]{ef15}.  
 
 
 \section{HOD Modelling}\label{hodmod}
 
 One important application of measuring the real-space correlation function of a 
 given population is to provide the statistics of how those objects populate 
-individual dark matter haloes.  Halo Occupation Distribution framework, provides 
+individual dark matter haloes. Halo Occupation Distribution framework, provides 
 the number of residing objects within one halo as well as an analytical form for 
 their distribution in each halo under the assumption that the number of objects 
 that reside in individual haloes is a function of the halo mass ($\langle 
@@ -324,7 +323,7 @@ AGNs and quasars in recent years \citep[see, e.g.,
 Although a number of studies have attempted to constrain the HOD parameters both 
 in large and small scales, only a few had access to observed correlation 
 function in halo scales ($<1 \, \rm h^{-1} Mpc$). We chose a modelling approach 
-similar to a recent study with an an observed correlation function over a 
+similar to a recent study with an observed correlation function over a 
 similar scale and redshift regime \citep{ko12}.  
 
 The projected two-point correlation function can be modeled using the matter 
