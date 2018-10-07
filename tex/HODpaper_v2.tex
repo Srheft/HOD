@@ -329,22 +329,22 @@ similar scale and redshift regime \citep{ko12}.
 The projected two-point correlation function can be modeled using the matter 
 power spectrum \citep[see, e.g., ][]{cs02}:
 \begin{equation}
-w_{p}(r_p) = \int^{\infty}_{0} \frac{k dk}{2\pi} P(k) J_0(k r_p)
+w_{p}(r_p) = \int^{\infty}_{0} \frac{k dk}{2\pi} P(k) J_0(k r_p),
 \end{equation}
 where $J_0$ is the zeroth order of the Bessel function of the first kind. The power spectrum $P(k)$ can be separated into two independent {\it one} and {\it two-halo} terms: 
 \begin{equation}
-  P(k) = P_{1h}(k)+P_{2h}(k)
+  P(k) = P_{1h}(k)+P_{2h}(k).
 \end{equation}
 The two-halo term can be simply obtained by  
 \begin{equation}
-P_{2h}(k) = b^2 P_{lin}(k)
+P_{2h}(k) = b^2 P_{lin}(k),
 \end{equation}
-Where the linear matter power spectrum, $P_{lin}$ is computed using 
+where the linear matter power spectrum, $P_{lin}$ is computed using 
 \citet{eh99}'s fitting form with our chosen cosmological parameters and $b$ is 
 the bias parameter that can be modeled as:
 
 \begin{equation}
-b = \frac{\int b_h(M) \frac{dn}{dM} dM}{\int \frac{dn}{dM} dM}
+b = \frac{\int b_h(M) \frac{dn}{dM} dM}{\int \frac{dn}{dM} dM}.
 \end{equation}
 % \begin{equation}
 % b = \frac{1}{n_q} \int b_h(M) \langle N(M) \rangle \frac{dn}{dM} dM
@@ -526,7 +526,7 @@ for the best-fit model that is more in accord with the measured correlation func
 KO12. But this {\it shape change} has not led to inconsistent best-fit parameters with those of the 
 best-fit model with haloes of normal concentration (see the second and the third rows of Table\,\ref{tab:res}). 
 
-To remove the added assumptions for including other measurements in the fit, we fit the same two-parameter HOD model used in prior fitting processes only to our single bin of measured $w_p$ from the KDE-complete sample of close pairs and the Mpc-scale measurement from eBOSS. The solid blue line and its shaded envelope in Figure \,\ref{fig6:kdeboss} represent the best-fit to this data (KDE+eBOSS) and its 1-$\sigma$ uncertainty. The solid dark red model and its associated envelope is the best-fit model to the same measurements but also the measured $w_p$ over eight bins of comoving distance from KO12. The shaded envelopes that are representing the 1-$\sigma$ uncertainties for the best fit model, are visibly separated, making it clear that inclusion of the clustering measurement at $z\sim1.4$ results in a different best-fit model (see the second and the last row of Table\,\ref{tab:res}).
+To remove the added assumptions for including past measurements in the results, we fit the same two-parameter HOD model used in prior fitting processes only to our measured $w_p$ from the KDE-complete sample of close pairs and our Mpc-scale measurement from the eBOSS sample, leaving KO12 measurement out of the fitting procedure. The solid blue line in Figure \,\ref{fig6:kdeboss} represents the best-fit to this data (KDE+eBOSS). The solid dark red model is the best-fit model to the same KDE+eBOSS measurements but also the measured $w_p$ over eight bins of comoving distance from KO12. The shaded envelopes that represent the 1-$\sigma$ uncertainties for the best-fit models, are visibly separated. This indicates that inclusion of the clustering measurement at $z\sim1.4$ results in a significantly different best-fit (see the second and the last row of Table\,\ref{tab:res}). The lower clustering signal measured for quasars in KO12 sample results in $> \times 30$ smaller satellite fraction compared to what KDE clustering alone implies. 
 
 \begin{table*}
 \centering
@@ -534,7 +534,7 @@ To remove the added assumptions for including other measurements in the fit, we 
 
 \hline
 \hline
-Data &$\rm M_m (\times 10^{12}\, h^{-1} M_{\odot})$ &$f_{sat}$& $\chi_{red}^2$ (dof)\\
+Data &$\rm M_m (\times 10^{12}\, h^{-1} M_{\odot})$ &$f_{sat}$& $\chi_{red}^2$ (d.o.f)\\
 \hline
  \vspace{.1in}
  4KDE+eBOSS+KO12& $1.43_{-0.25}^{+0.31}$& $0.024_{-0.007}^{+0.007}$& 1.460 (22)\\
@@ -543,13 +543,12 @@ Data &$\rm M_m (\times 10^{12}\, h^{-1} M_{\odot})$ &$f_{sat}$& $\chi_{red}^2$ (
  \vspace{.1in}
  1KDE+eBOSS+KO12 ($10\times \bar c$)& $1.55_{-0.35}^{+0.29}$& $0.016_{-0.007}^{+0.007}$& 1.213 (20)\\
  \vspace{.1in}
- 1KDE+eBOSS & $2.32_{-0.46}^{+0.44}$& $0.062_{-0.008}^{+0.026}$& 0.855 (12)\\
+ 1KDE+eBOSS & $2.32_{-0.46}^{+0.44}$& $0.062_{-0.028}^{+0.026}$& 0.855 (12)\\
 
 \hline
 \end{tabular}
-\caption{ Summary of the fitting results based on the data that participated in 
-the fit. The second and third columns are the best-fit parameters for the 
-fit and their 1-sigma uncertainties. The last column lists the reduced 
+\caption{ Summary of the fitting results using different data that participated in 
+the fit. The second and third columns are the best-fit parameters and their 1-$\sigma$ uncertainties. The last column lists the reduced 
 $\chi^2$ (and the degrees of freedom). }\label{tab:res}
 \end{table*}
 
@@ -578,14 +577,14 @@ designed for local AGNs) have emerged \citep{Coi16,coi17}.
     \centering
     %\begin{subfigure}{
      %\centering
-       \includegraphics[angle=0,scale=0.6]{Bestfit_with_wp10c_2pars_1KDE_NOKO12.eps}
-      % \includegraphics[angle=0,scale=0.6]{cornerplot_SEP18_1KDE_10c.eps}}
+       \includegraphics[angle=0,scale=0.6]{Bestfit_2pars_1KDE_NOKO12.eps}
+      % \includegraphics[angle=0,scale=0.6]{cornerplot__1KDE_NOKO12.eps}}
     \caption{Left: Our HOD prediction of the projected correlation function that 
 best-fits the full-scale measurement where only the measurement from 
 KDE-complete sample of close pairs and the data from eBOSS clustering is added 
-(solid blue curve in Fig.\ref{fig4:cor}). The best-fit model (solid green line) 
-has $\rm M_{m} = 2.49_{-0.465}^{+0.498} \times 10^{12}\, h^{-1} M_{\odot}$, and 
-$f_{\rm sat} = 0.052_{-0.033}^{+0.016}$ with reduced $\chi^{2} = 1.09$. The 
+(solid blue curve in Fig.\ref{fig4:cor}). The best-fit model
+has $\rm M_{m} = 2.32_{-0.440}^{+0.463} \times 10^{12}\, h^{-1} M_{\odot}$, and 
+$f_{\rm sat} = 0.062_{-0.026}^{+0.028}$ with reduced $\chi^{2} = 1.09$. The 
 shaded envelope around the best-fit model is the extent of the 2-sigma certainty 
 for the shape of the HOD model at each bin of the projected distance ($\rm 
 r_p$). }\label{fig6:kdeboss}
