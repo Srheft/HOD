@@ -15,10 +15,10 @@ import numpy as np
 from time import time, sleep
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
-from wpfunc4hod import wpfunc
+from wpfunc4hod import wpfunc,wpfunc10c
 import warnings
 
-#TO RUN: python wp_mcmc_2pars_CORRECTED.py 666 2000
+#
 ######################################################################
 def median_error(X):
   
@@ -45,7 +45,8 @@ def xi2(data, up_err, down_err, model):
 def Xi2(fsat, Mm):
   warnings.filterwarnings('ignore')
   #dat = loadtxt('rp_wp_err.dat')#wpobs_err_4mcmc.dat
-  dat = loadtxt('rp_wp_err_NOTALL_KO12.dat')
+
+  dat = loadtxt('rp_wp_err_ONLY1KDE.dat')
   rp = dat[:,0]
   wpobs = dat[:,1]
   uerr = dat[:,2]
@@ -115,7 +116,7 @@ def main():
     fsat_new    = random.normalvariate(fsat, 0.3*sigma_fsat)
     Mm_new    = random.normalvariate(Mm, 0.3*sigma_Mm)
     
-    if all([fsat_new > 0.008,fsat_new <0.080 ,Mm_new >1.e12 ,Mm_new <1.e15]):  
+    if all([fsat_new > 0.005,fsat_new <0.09 ,Mm_new >1.e11 ,Mm_new <1.e15]):  
         
       xhi2_new, model_new = Xi2(fsat_new, Mm_new)
       chi2_new = sum(xhi2_new)
