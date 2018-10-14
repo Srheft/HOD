@@ -11,3 +11,4 @@ Sep 5th --> new estimatiion of the Mh and fsat is now deviating from the lower l
 Sep 20th --> kpc/Mpc section of the draft is updated
 Sep 25th --> missing refereces in dat section are added 
 Sepn28th --> added 10c best fit result
+Oct 10th --> second batch of comments received and applied ---> latex can not be uploaded due to publication policy.
