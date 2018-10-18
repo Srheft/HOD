@@ -8,7 +8,7 @@ import sys
 import corner
 import matplotlib as plt
 
-#filename = 'chain2_2pars_new_ONLY1KDE_ALL.dat'
+
 filename = 'chain2_2pars_newdatapoints_ALL.dat'
 dat = loadtxt(filename)
 
