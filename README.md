@@ -16,4 +16,4 @@ Oct 10th --> second batch of comments received and applied ---> latex can not be
 A fit to all of the data (All 4 KDE bins, all 8 KO12 bins; unless to discard overlapping KO12/KDE bins; and eBOSS)
 A fit to eBOSS+(all 8) KO12 bins
 A fit to eBOSS+(all 4) KDE bins
-
+look at which pairs in the KDE parent sample we may miss at relevant comoving separations because we do not have spectroscopy of those pairs, estimate what fraction of them would be "binary" quasars based on our statistics for other target pairs, and expand the error bars on the KDE points to incorporate this possible source of incompleteness in each bin
