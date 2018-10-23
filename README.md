@@ -12,7 +12,7 @@ Sep 20th --> kpc/Mpc section of the draft is updated
 Sep 25th --> missing refereces in dat section are added 
 Sepn28th --> added 10c best fit result
 Oct 10th --> second batch of comments received and applied ---> latex can not be uploaded due to publication policy.
-  
+Oct 20th  
 A fit to all of the data (All 4 KDE bins, all 8 KO12 bins; unless to discard overlapping KO12/KDE bins; and eBOSS)
 A fit to eBOSS+(all 8) KO12 bins
 A fit to eBOSS+(all 4) KDE bins
