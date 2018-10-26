@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from cosmo import dist
+from cosmocalc import dist
 from sys import argv
 from math import pi
 import numpy as np
