@@ -59,12 +59,7 @@ def Xi2(fsat, Mm):
   z,nqobs,om0,delta_vir,kmin,kmax,M_star,dx,delm = 1.55,6.46178e-06,0.308,200.,0.01,1000,2.e13,0.5,0.75
   
   chisq,model = xi2(wpobs, uerr, lerr, wpfunc(z,nqobs,rp,Mm,fsat,delm,kmin,kmax,dx, B=0))
-  #sum = 0. 
-  #for i in range(len(rp)):
-    
-    ##sum += xi2(b[i], uerr[i], lerr[i], c+a*(1+z[i])**2)
-     #sum += xi2(wpobs[i], uerr[i], lerr[i], wpfunc(z,nqobs,rp[i],Mm,fsat,delm,kmin,kmax,dx, B=0)[i])
-  #return sum  
+  
   return chisq,model
 ######################################################################
 
@@ -93,9 +88,7 @@ def main():
  chi2 = sum(xhi2)
 
  filename = 'results_seed'+str(sd)+'_nchain'+str(nchain)+'_2pars_fsat'+str(fsat)+'_Mm'+str(Mm)+'_delm'+str(delm)+'.txt'
-
-#with open(filename, 'w') as file:
- #file.write('i, fast, Mm, chi2\n')
+  
  F = open(filename,'w')
 
  i = 0
@@ -154,7 +147,6 @@ def main():
              print i, chi2
          i+=1   # loop index
  
- ### Do not remove the following line !!!
  myTable.write(filename, format='ascii.fixed_width',delimiter=' ', bookend=False)
 
 ######################################################################
