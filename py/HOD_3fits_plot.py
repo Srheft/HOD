@@ -42,9 +42,10 @@ def meanNM(M,delm,Mm1):
 
 def stats(seed,nchain,pars,plots=False):
   
-  filename1 ='FIT1_OCT2018-4KDE+KO12+eBOSS.dat'
-  filename2 ='FIT2_OCT2018-allKO12+eBOSS.dat'
-  filename3 ='FIT3_OCT2018-4KDE+eBOSS.dat'
+  filename1 ='FIT1_NOV2018-4KDE+KO12+eBOSS.dat'
+  filename2 ='FIT2_NOV2018-allKO12+eBOSS.dat'
+  filename3 ='FIT3_NOV2018-4KDE+eBOSS.dat'
+  filename4 ='10cFIT3_OCT2018-4KDE+eBOSS.dat'
 
   #print('Working with ', filename1)
   dropouts = 0
@@ -112,6 +113,25 @@ def stats(seed,nchain,pars,plots=False):
   bMm3 = np.mean(Mm3)
   bfsat3 = np.mean(fsat3)
 
+  cols4=["n","fsat1", "Mm1","dm","chi2","wp0","wp1","wp2","wp3","wp4","wp5","wp6","wp7","wp8","wp9","wp10","wp11","wp12","wp13","wp14","wp15","wp16","wp17","wp18"]
+  dat4 = loadtxt(filename4)
+  fsat4 = dat4[:,1]
+  Mm4 = dat4[:,2]
+  fsat4 = fsat4[dropouts:len(dat4)]
+  bfsat4_err4 = median_error(fsat4)
+  Mm4 = Mm4[dropouts:len(dat4)]
+  bMm4_err4 = median_error(Mm4)
+  Mm4 = np.asarray(Mm4)
+  fsat4 = np.asarray(fsat4)
+  chi2_4 = dat4[:,4]  
+  chi2_4 = chi2_4[dropouts:len(dat4)]
+  chi2_4 = np.asarray(chi2_4)
+  bferr4=median_error(fsat4)
+  merr4= median_error(Mm4)   
+  w4=np.where(chi2_4 == min(chi2_4))
+  bMm4 = np.mean(Mm4)
+  bfsat4 = np.mean(fsat4)
+
   # Reporting .....
   
   print '  ********************************  '
@@ -137,9 +157,17 @@ def stats(seed,nchain,pars,plots=False):
   print 'mean fsat3= ',np.mean(fsat3),'+',bferr3[1],'-',bferr3[2]
   print 'mean Mm3= ' ,np.mean(Mm3)/1e12,' e12+',merr3[1]/1e12,' e12-',merr3[2]/1e12
   print 'mean chi2= ',np.mean(chi2_3)
+
+  print '  ********************************  '
+  print 'This chain has reached to a chisq of ', min(chi2_4), '(reduced chisq of ',min(chi2_4)/(len(cols4)-pars-1), ') for:'
+  print 'Mm4 = ',Mm4[w4][0]/1e12, 'e12 M_sun/h  '
+  print 'fsat4 = ', fsat4[w4][0]
+  print 'mean fsat4= ',np.mean(fsat4),'+',bferr4[1],'-',bferr4[2]
+  print 'mean Mm4= ' ,np.mean(Mm4)/1e12,' e12+',merr4[1]/1e12,' e12-',merr4[2]/1e12
+  print 'mean chi2= ',np.mean(chi2_4)
   print '  ********************************  '
 
-  
+
   
   
   #--------------------------------- plotting 
@@ -379,9 +407,69 @@ def stats(seed,nchain,pars,plots=False):
   p23,= ax.plot(rparr_mpc,wp_mpc,'r-')#,color="blue",label=r'$\rm Best fit$')
 
   #-------------------------------------------------------------------------------------------
-  lns = [p12, p1, p22, p2, p23, p3]
+   #------------------------------------------- Fourth BEST FIT  ---------------------------------------------
+
+  #ALL KO12+eBOSS POINTS 10c -----------------------------------------------------------------------------------
+  nwp=19  # how many total number of wp data points exits in the data file that had been used for the fit
+  weBOSS = 4 #where the eBOSS stars
+  wst,wen = 0,4 #where the KO12 set starts and ends - before and after the KDE points
+  #-------------------------------------------------------------------------------------------------------
+  wup1 = []
+  wlo1 = []
+  wcen = []
+  
+  for i in range(nwp):
+          
+          w= dat4[:,i+5]
+          en1 = onesig_envelope(w)
+          wup1.append(en1[2])
+          wcen.append(en1[1])
+          wlo1.append(en1[0])
+
+  wlo1 = np.asarray(wlo1)   
+  wup1 = np.asarray(wup1)    
+  wcen = np.asarray(wcen) 
+  
+  
+  rparr_kpc = np.logspace(-1.95, log10(2.0),num=10, endpoint=True )
+      
+  rparr_mpc = np.logspace(0.301, log10(100),num=25, endpoint=True )
+      
+  wp_kpc= wpfunc10c(1.55,6.46178e-6,rparr_kpc,np.mean(Mm4),np.mean(fsat4),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+  wp_kpc_up= wpfunc10c(1.55,6.46178e-6,rparr_kpc,(np.mean(Mm4)+merr4[1]),(np.mean(fsat4)+bferr4[1]),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+  wp_kpc_lo= wpfunc10c(1.55,6.46178e-6,rparr_kpc,(np.mean(Mm4)-merr4[2]),(np.mean(fsat4)-bferr4[2]),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+  wp_mpc= wpfunc10c(1.55,6.46178e-6,rparr_mpc,np.mean(Mm4),np.mean(fsat4),np.mean(delm), 0.01, 1000, 0.5, B=0)
+      
+  wp_mpc_up= wpfunc10c(1.55,6.46178e-6,rparr_mpc,(np.mean(Mm4)+merr4[1]),(np.mean(fsat4)+bferr4[1]),np.mean(delm), 0.01, 1000, 0.5, B=0)
+
+  wp_mpc_lo= wpfunc10c(1.55,6.46178e-6,rparr_mpc,(np.mean(Mm4)-merr4[2]),(np.mean(fsat4)-bferr4[2]),np.mean(delm), 0.01, 1000, 0.5, B=0)
+   
+     
+  obs = loadtxt('FIT3_rp_wp_err_4KDE+eBOSS.dat')
+  rpd = obs[:,0]
+  wpd = obs[:,1]
+  err = obs[:,2]
+
+  p4,= ax.plot(rparr_kpc,wp_kpc,marker='-',color='orange', label=r'$\rm Best-Fit\, c=10xc\, KDE+eBOSS$')
+
+  ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='amber', facecolor='amber') #for kpc 
+  ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='amber', facecolor='amber') #for Mpc   
+  
+  kde = ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='k',capsize=2.0,capthick=1.,label='KDE') 
+  
+  kdeb = ax.errorbar(rpd[wen:len(cols4)-1],wpd[wen:len(cols4)-1],yerr=err[wen:len(cols4)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.,label='This work: KDE+eBOSS') 
+  ax.errorbar(rpd[wen:len(cols4)-1],wpd[wen:len(cols4)-1],yerr=err[wen:len(cols4)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.) 
+
+  p24,= ax.plot(rparr_mpc,wp_mpc,marker='-',color='orange')#,color="blue",label=r'$\rm Best fit$')
+
+  #-------------------------------------------------------------------------------------------
+
+  lns = [p12, p1, p22, p2, p23, p3, p24, p4]
   ax.legend(handles=lns, loc='best')
-  fig.savefig('HOD_3BESTFITS.eps',bbox_inches='tight')
+  fig.savefig('HOD_4BESTFITS.eps',bbox_inches='tight')
 
   plt.show()
       
