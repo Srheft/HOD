@@ -43,8 +43,8 @@ def meanNM(M,delm,Mm1):
 def stats(seed,nchain,pars,plots=False):
   
   filename1 ='FIT1_NOV2018-4KDE+KO12+eBOSS.dat'
-  filename2 ='FIT2_NOV2018-allKO12+eBOSS.dat'
-  filename3 ='FIT3_NOV2018-4KDE+eBOSS.dat'
+  filename2 ='FIT2_NOV2018-allKO12+eBOSS_TRIMMED.dat'
+  filename3 ='FIT3_NOV2018-4KDE+eBOSS_TRIMMED.dat'
   filename4 ='10cFIT3_OCT2018-4KDE+eBOSS.dat'
 
   #print('Working with ', filename1)
@@ -133,39 +133,39 @@ def stats(seed,nchain,pars,plots=False):
   bfsat4 = np.mean(fsat4)
 
   # Reporting .....
-  
-  print '  ********************************  '
-  print 'This chain has reached to a chisq of ', min(chi2_1), '(reduced chisq of ',min(chi2_1)/(len(cols1)-pars-1), ') for:'
-  print 'Mm1 = ',Mm1[w1][0]/1e12, 'e12 M_sun/h  '
-  print 'fsat1 = ', fsat1[w1][0]
-  print 'mean fsat1= ',np.mean(fsat1),'+',bferr1[1],'-',bferr1[2]
-  print 'mean Mm1= ' ,np.mean(Mm1)/1e12,' e12+',merr1[1]/1e12,' e12-',merr1[2]/1e12
-  print 'mean chi2= ',np.mean(chi2_1)
+  pars = 2
+  print('  ********************************  ')
+  print('This chain has reached to a chisq of ', min(chi2_1), '(reduced chisq of ',min(chi2_1)/(len(cols1)-5-pars-1), ') for dof= ',(len(cols1)-5-pars-1),':')
+  print('Mm1 = ',Mm1[w1][0]/1e12, 'e12 M_sun/h  ')
+  print('fsat1 = ', fsat1[w1][0])
+  print('mean fsat1= ',np.mean(fsat1),'+',bferr1[1],'-',bferr1[2])
+  print('mean Mm1= ' ,np.mean(Mm1)/1e12,' e12+',merr1[1]/1e12,' e12-',merr1[2]/1e12)
+  print('mean chi2= ',np.mean(chi2_1))
 
-  print '  ********************************  '
-  print 'This chain has reached to a chisq of ', min(chi2_2), '(reduced chisq of ',min(chi2_2)/(len(cols2)-pars-1), ') for:'
-  print 'Mm2 = ',Mm2[w2][0]/1e12, 'e12 M_sun/h  '
-  print 'fsat2 = ', fsat2[w2][0]
-  print 'mean fsat2= ',np.mean(fsat2),'+',bferr2[1],'-',bferr2[2]
-  print 'mean Mm2= ' ,np.mean(Mm2)/1e12,' e12+',merr2[1]/1e12,' e12-',merr2[2]/1e12
-  print 'mean chi2= ',np.mean(chi2_2)
+  print('  ********************************  ')
+  print('This chain has reached to a chisq of ', min(chi2_2), '(reduced chisq of ',min(chi2_2)/(len(cols2)-5-pars-1), ') for dof= ',(len(cols2)-5-pars-1),':')
+  print('Mm2 = ',Mm2[w2][0]/1e12, 'e12 M_sun/h  ')
+  print('fsat2 = ', fsat2[w2][0])
+  print('mean fsat2= ',np.mean(fsat2),'+',bferr2[1],'-',bferr2[2])
+  print('mean Mm2= ' ,np.mean(Mm2)/1e12,' e12+',merr2[1]/1e12,' e12-',merr2[2]/1e12)
+  print('mean chi2= ',np.mean(chi2_2))
 
-  print '  ********************************  '
-  print 'This chain has reached to a chisq of ', min(chi2_3), '(reduced chisq of ',min(chi2_3)/(len(cols3)-pars-1), ') for:'
-  print 'Mm3 = ',Mm3[w3][0]/1e12, 'e12 M_sun/h  '
-  print 'fsat3 = ', fsat3[w3][0]
-  print 'mean fsat3= ',np.mean(fsat3),'+',bferr3[1],'-',bferr3[2]
-  print 'mean Mm3= ' ,np.mean(Mm3)/1e12,' e12+',merr3[1]/1e12,' e12-',merr3[2]/1e12
-  print 'mean chi2= ',np.mean(chi2_3)
+  print('  ********************************  ')
+  print('This chain has reached to a chisq of ', min(chi2_3), '(reduced chisq of ',min(chi2_3)/(len(cols3)-5-pars-1), ') for dof= ',(len(cols3)-5-pars-1),':')
+  print('Mm3 = ',Mm3[w3][0]/1e12, 'e12 M_sun/h  ')
+  print('fsat3 = ', fsat3[w3][0])
+  print('mean fsat3= ',np.mean(fsat3),'+',bferr3[1],'-',bferr3[2])
+  print('mean Mm3= ' ,np.mean(Mm3)/1e12,' e12+',merr3[1]/1e12,' e12-',merr3[2]/1e12)
+  print('mean chi2= ',np.mean(chi2_3))
 
-  print '  ********************************  '
-  print 'This chain has reached to a chisq of ', min(chi2_4), '(reduced chisq of ',min(chi2_4)/(len(cols4)-pars-1), ') for:'
-  print 'Mm4 = ',Mm4[w4][0]/1e12, 'e12 M_sun/h  '
-  print 'fsat4 = ', fsat4[w4][0]
-  print 'mean fsat4= ',np.mean(fsat4),'+',bferr4[1],'-',bferr4[2]
-  print 'mean Mm4= ' ,np.mean(Mm4)/1e12,' e12+',merr4[1]/1e12,' e12-',merr4[2]/1e12
-  print 'mean chi2= ',np.mean(chi2_4)
-  print '  ********************************  '
+  print('  ********************************  ')
+  print('This chain has reached to a chisq of ', min(chi2_4), '(reduced chisq of ',min(chi2_4)/(len(cols4)-5-pars-1), ') for dof= ',(len(cols4)-5-pars-1),':')
+  print('Mm4 = ',Mm4[w4][0]/1e12, 'e12 M_sun/h  ')
+  print('fsat4 = ', fsat4[w4][0])
+  print('mean fsat4= ',np.mean(fsat4),'+',bferr4[1],'-',bferr4[2])
+  print('mean Mm4= ' ,np.mean(Mm4)/1e12,' e12+',merr4[1]/1e12,' e12-',merr4[2]/1e12)
+  print('mean chi2= ',np.mean(chi2_4))
+  print('  ********************************  ')
 
 
   
@@ -274,7 +274,7 @@ def stats(seed,nchain,pars,plots=False):
   ax.grid(False)
 
   # Plots    
-  p1,= ax.plot(rparr_kpc,wp_kpc,'b-', label=r'$\rm Best-Fit\, for \, KO12+KDE+eBOSS$')
+  p1,= ax.plot(rparr_kpc,wp_kpc,'b-', label=r'$\rm KDE+KO12+eBOSS$')
 
   ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE') #for kpc 
   ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='#00EEEE', facecolor='#00EEEE') #for Mpc   
@@ -335,7 +335,7 @@ def stats(seed,nchain,pars,plots=False):
   wpd = obs[:,1]
   err = obs[:,2]
 
-  p2,= ax.plot(rparr_kpc,wp_kpc,'g-', label=r'$\rm Best-Fit\, for \, KO12+eBOSS$')
+  p2,= ax.plot(rparr_kpc,wp_kpc,'g-', label=r'$\rm KO12+eBOSS$')
 
   ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='#ffff00', facecolor='#ffff00') #for kpc 
   ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='#ffff00', facecolor='#ffff00') #for Mpc   
@@ -394,7 +394,7 @@ def stats(seed,nchain,pars,plots=False):
   wpd = obs[:,1]
   err = obs[:,2]
 
-  p3,= ax.plot(rparr_kpc,wp_kpc,'r-', label=r'$\rm Best-Fit\, for \, KDE+eBOSS$')
+  p3,= ax.plot(rparr_kpc,wp_kpc,'r-', label=r'$\rm KDE+eBOSS$')
 
   ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='#ff00ff', facecolor='#ff00ff') #for kpc 
   ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='#ff00ff', facecolor='#ff00ff') #for Mpc   
@@ -453,17 +453,17 @@ def stats(seed,nchain,pars,plots=False):
   wpd = obs[:,1]
   err = obs[:,2]
 
-  p4,= ax.plot(rparr_kpc,wp_kpc,marker='-',color='orange', label=r'$\rm Best-Fit\, c=10xc\, KDE+eBOSS$')
+  p4,= ax.plot(rparr_kpc,wp_kpc,'-',color='orange', label=r'$\rm (c=10c)\, KDE+eBOSS$')
 
-  ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='amber', facecolor='amber') #for kpc 
-  ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='amber', facecolor='amber') #for Mpc   
+  ax.fill_between(rparr_kpc,wp_kpc_up,wp_kpc_lo,alpha=0.6, edgecolor='#CC4F1B', facecolor='#CC4F1B') #for kpc 
+  ax.fill_between(rparr_mpc,wp_mpc_up,wp_mpc_lo,alpha=0.6, edgecolor='#CC4F1B', facecolor='#CC4F1B') #for Mpc   
   
   kde = ax.errorbar(rpd[wst:wen],wpd[wst:wen],yerr=err[wst:wen],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='k',capsize=2.0,capthick=1.,label='KDE') 
   
   kdeb = ax.errorbar(rpd[wen:len(cols4)-1],wpd[wen:len(cols4)-1],yerr=err[wen:len(cols4)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.,label='This work: KDE+eBOSS') 
   ax.errorbar(rpd[wen:len(cols4)-1],wpd[wen:len(cols4)-1],yerr=err[wen:len(cols4)-1],linestyle='None',marker='o',markersize=3.,color='k',fillstyle='full',elinewidth=0.5,ecolor='black',capsize=2.0,capthick=1.) 
 
-  p24,= ax.plot(rparr_mpc,wp_mpc,marker='-',color='orange')#,color="blue",label=r'$\rm Best fit$')
+  p24,= ax.plot(rparr_mpc,wp_mpc,'-',color='orange')#,color="blue",label=r'$\rm Best fit$')
 
   #-------------------------------------------------------------------------------------------
 

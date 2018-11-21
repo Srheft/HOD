@@ -30,7 +30,18 @@ import warnings
 class ellipsoidalcollapse:
 
     def __init__(self,omega=0.307,lamda=0.693,sig8=0.8137,gams=0.21,acc=1e-9,H0=67.8,omb=0.045):
- 
+        """Sheth, Mo & Tormen (2001) ellipsoidal collapse model
+
+        INPUTS: Dark Matter halo mass, omega_matter_0, omega_lamda_0,
+        sigma_8, power spectrum shape, integration accuracies, Hubble
+        constant (written with dimensions to avoid confusion with
+        little h as we only use it for Eisenstein & Hu models) and the
+        fraction of the total universe in baryons.
+
+        v1.0 Adam D. Myers: August 2006
+        """
+#        self.T = self.TEBW # choose a transfer function
+
 # Eisenstein and Hu only T(k) parameters below
         self.brat = omb/float(omega)
         self.hspec = H0/100.
@@ -118,13 +129,13 @@ class ellipsoidalcollapse:
     def bq(self,z):
         """bias from Sheth, Mo & Tormen (2001) collapse model"""
 
-        try:
-            self.sig
-        except AttributeError,NameError:
-            print "*******************************************"
-            print "* RUN MDMH first to initialize mass scale *"
-            print "*******************************************"
-            raise IOError
+        #try:
+        #    self.sig
+        #except AttributeError,NameError:
+        #    print "*******************************************"
+        #    print "* RUN MDMH first to initialize mass scale *"
+        #    print "*******************************************"
+        #    raise IOError
 
         aa = 0.707
         sqrta = sqrt(0.707)
@@ -296,7 +307,7 @@ def biasint(z,nqobs,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #log interval in mass for dlog10M in the integrator
+    #ADM the log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
@@ -354,7 +365,7 @@ def biasint2(z,nqobs,bctrl,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #log interval in mass for dlog10M in the integrator
+    #ADM the log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
@@ -750,13 +761,13 @@ def main():
    b,fN,nqcalc = biasint(z,nqobs,delm,Mm)
    
    rpdis=[0.012,0.071,0.11,0.171,0.265,0.634,3.636,5.627,10.,20.,30.]
-   print ''
-   print 'Working with ','ukm_z'+str(z)+'_dk'+str(dk)+'_kmax'+str(kmax)+'.dat'
-   print ''
+   print('')
+   print('Working with ','ukm_z'+str(z)+'_dk'+str(dk)+'_kmax'+str(kmax)+'.dat')
+   print('')
    
    for i in range(len(rpdis)):
      binstart = time()
-     print rpdis[i],'Mpc/h ',fastwp(z,b,delm,Mm,fsat,rpdis[i],nqobs),(time()-binstart), "sec"
+     print(rpdis[i],'Mpc/h ',fastwp(z,b,delm,Mm,fsat,rpdis[i],nqobs),(time()-binstart), "sec")
      #wpint(z,b,fN,delm,Mm,fsat,rpdis[i],M_star,kmin,kmax,dk,lcut,hcut)
      #wp_new(z,b,fN,delm,Mm,fsat,rpdis[i],rho_s,r_s,M_star,kmin,kmax,dk,lcut,hcut)#
 if __name__ == '__main__':
@@ -764,4 +775,4 @@ if __name__ == '__main__':
   main()
   
   
-  print "Done!....took ",(time()-start)/60., "min"
+  print("Done!....took ",(time()-start)/60., "min")
