@@ -454,7 +454,7 @@ def main(plot=True):
   rparr = np.logspace(-2, log10(100),num=30, endpoint=True )
   
   wparr= wpfunc(z,8.813713331743382e-06,rparr,5.24903365032e+12,0.0326323936368,0.823258600156, 0.01, 1000, 0.5, B=0) # fitting parameters are Mm,fsat,delm
-  print 'wparr=',wparr
+  print('wparr=',wparr)
   
   #wparr2= wpfunc(z,8.35e-6,rparr,1.33e13,0.01,0.75, 0.01, 1000, 0.5, B=0) # fitting parameters are Mm,fsat,delm 
   #print 'wparr2=',wparr2
