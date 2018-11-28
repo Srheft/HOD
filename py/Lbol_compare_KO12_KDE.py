@@ -25,7 +25,7 @@ ko12_z=[0.978,0.980,0.626,0.627,1.712,1.712,1.218,1.223,1.833,1.883,1.212,1.215,
 #SE:
 
 
-w=open('KDEpairs_z_mi_Mi_Lbole-47.dat','w+') # make them without .dat 
+w=open('KDEpairs_z_mi_Mi_Lbol.dat','w+') # make them without .dat 
 
 kde_absimag=[]
 kde_Lbol=[]
@@ -42,10 +42,13 @@ for j in range(len(kde_imags)):
           Absimag = kde_imags[j]-dis.Kcorr(kde_z[i])-dmz
           
           kde_absimag.append(Absimag)
-
+          
+          print(kde_imags[j],kde_z[i], Absimag, (Absimag-90.596)/-2.5, 10**((Absimag-90.596)/-2.5))
+          
           kde_2z.append(kde_z[i])
+          
           #SE: combining eqn 1 of Shen++2009 and eqn 1 of Richards++2006 => Mi(z=0)=Mi(z=2)+0.596, where Mi(z=2)=90-2.5 log10(Lbol/erg/s)
-          Lbol =  10**((Absimag-90.596)/2.5)*1e47 # in ergs/s 
+          Lbol =  10**((Absimag-90.596)/-2.5) # in ergs/s 
 
           kde_Lbol.append(Lbol)
 
@@ -55,7 +58,7 @@ for j in range(len(kde_imags)):
           
           w.write(string+'\n')
    
-w=open('KO12pairs_z_mi_Mi_Lbole-47.dat','w+') # make them without .dat 
+w=open('KO12pairs_z_mi_Mi_Lbol.dat','w+') # make them without .dat 
 ko12_absimag=[]
 ko12_Lbol=[]
 
@@ -72,7 +75,7 @@ for j in range(len(ko12_imags)):
           ko12_absimag.append(Absimag)
           
           #SE: combining eqn 1 of Shen++2009 and eqn 1 of Richards++2006 => Mi(z=0)=Mi(z=2)+0.596, where Mi(z=2)=90-2.5 log10(Lbol/erg/s)
-          Lbol =  10**((Absimag-90.596)/2.5)*1e47  # in ergs/s 
+          Lbol =  10**((Absimag-90.596)/-2.5)  # in ergs/s 
           
           ko12_Lbol.append(Lbol)
           
@@ -96,29 +99,26 @@ zmids = []
 for i in range(8):
     
     zx = zm+delz
-    print(i,zm,zx)
+    #print(i,zm,zx)
     zmids.append((zm+zx)/2.)
     w = np.where(kde_2z <=  zx) and np.where(kde_2z > zm)
-    print(w)
+    #print(w)
     Lbin_kde.append(mean(kde_Lbol[w]))
     w = np.where(ko12_z <=  zx) and np.where(ko12_z > zm)
     Lbin_ko12.append(mean(ko12_Lbol[w]))
     zm = zx
           
-counts_kde, bin_edges_kde = np.histogram(kde_Lbol, bins=5)
-counts_ko12, bin_edges_ko12 = np.histogram(ko12_Lbol, bins=5)
-print('HISTcounts_kde',counts_kde,'HISTcounts_ko12',counts_ko12) 
-print('Average bolometric luminosity of KDE quasars:',np.mean(kde_Lbol),'e-47 ergs/s','Average bolometric luminosity of KO12 quasars:',np.mean(ko12_Lbol),'e-47 ergs/s','mean(kde_Lbol)/mean(ko12_Lbol):',np.mean(kde_Lbol)/np.mean(ko12_Lbol)) 
-
-
-
+#counts_kde, bin_edges_kde = np.histogram(kde_Lbol, bins=5)
+#counts_ko12, bin_edges_ko12 = np.histogram(ko12_Lbol, bins=5)
+#print('HISTcounts_kde',counts_kde,'HISTcounts_ko12',counts_ko12) 
+print('Average bolometric luminosity of KDE quasars:',np.mean(kde_Lbol),' ergs/s','Average bolometric luminosity of KO12 quasars:',np.mean(ko12_Lbol),' ergs/s','mean(kde_Lbol)/mean(ko12_Lbol):',np.mean(kde_Lbol)/np.mean(ko12_Lbol)) 
 
 
 fig=plt.figure()
 ax= fig.add_subplot(111)
 # axes limits
-x1=0.6; x2=2.5
-y1=0.4; y2=50.0
+x1=0.6; x2=2.3
+y1=0.; y2=25.0
    
 # Genral axes
 ax.set_xlim(x1, x2)
@@ -137,18 +137,18 @@ x_ax.set_xlim(x1, x2)
 x_ax.set_xticklabels([])
 x_ax.minorticks_on()
    
-ax.set_ylabel(r'$\rm L_{bol}\, [\times 10^{-47} \, s^{-1}erg]$', fontsize=12)
+ax.set_ylabel(r'$\rm L_{bol}\, [\times 10^{46} \, s^{-1}erg]$', fontsize=12)
 ax.set_xlabel(r'$\rm z$', fontsize=12)
       
 # Grid
 ax.grid(False)
 
-p1,= ax.plot(kde_2z,kde_Lbol,marker='o',markersize=4.,color='orange',linestyle='None', label=r'$\rm KDE \, QSOs$')   
-p2,= ax.plot(ko12_z,ko12_Lbol,marker='s',markersize=4.,color='magenta',linestyle='None', label=r'$\rm KO12 \, QSOs$')   
+p1,= ax.plot(kde_2z,kde_Lbol/1e46,marker='o',markersize=4.,color='orange',linestyle='None', label=r'$\rm KDE \, QSOs$')   
+p2,= ax.plot(ko12_z,ko12_Lbol/1e46,marker='s',markersize=4.,color='magenta',linestyle='None', label=r'$\rm KO12 \, QSOs$')   
 
 lns = [p1,p2]
 
-ax.legend(handles=lns, loc='best')
+ax.legend(handles=lns, loc='upper left')
 fig.savefig('Lum_compare.eps',bbox_inches='tight')
 
 
@@ -178,7 +178,7 @@ x_ax.set_xticklabels([])
 x_ax.minorticks_on()
 
 
-ax.set_ylabel(r'$\rm L_{bol}\, [\times 10^{-47} \, s^{-1}erg]$', fontsize=12)
+ax.set_ylabel(r'$\rm L_{bol}\, [\times 10^{46} \, s^{-1}erg]$', fontsize=12)
 ax.set_xlabel(r'$\rm z$', fontsize=12)
       
 # Grid
@@ -187,8 +187,9 @@ ax.grid(False)
 h=delz
 v=0.15
 
+Lbin_kde=np.asarray(Lbin_kde)/1e46
+p1,= ax.plot(zmids,Lbin_kde,marker='o',markersize=2.,color='orange',linestyle='None', label=r'$\rm KDE \, QSOs$') 
 
-p1,= ax.plot(zmids,Lbin_kde,marker='o',markersize=2.,color='orange',linestyle='None', label=r'$\rm KDE \, QSOs$')  
 a=(list(zmids),list(Lbin_kde))
 a_zipped = zip(*a)
 for a_x, a_y in a_zipped:
@@ -196,7 +197,7 @@ for a_x, a_y in a_zipped:
     ax.add_patch(Rectangle(xy=(a_x-h/2, a_y-v/2) ,width=h, height=v, linewidth=1, color='orange', fill=True))
     
     
-
+Lbin_ko12=np.asarray(Lbin_ko12)/1e46
 p2,= ax.plot(zmids,Lbin_ko12,marker='s',markersize=2.,color='magenta',linestyle='None', label=r'$\rm KO12 \, QSOs$') 
 a=(list(zmids),list(Lbin_ko12))
 a_zipped = zip(*a)
@@ -207,7 +208,7 @@ for a_x, a_y in a_zipped:
 
 lns = [p1,p2]
 
-ax.legend(handles=lns, loc='best')
+ax.legend(handles=lns, loc='upper left')
 fig.savefig('binnedLum_compare.eps',bbox_inches='tight')
 
 #print('kde_Lbol',kde_Lbol)
