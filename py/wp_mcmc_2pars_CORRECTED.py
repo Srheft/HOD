@@ -11,7 +11,6 @@ from astropy.table import Table, Column
 from astropy.io import ascii
 from math import sqrt, pi, sin, cos, log as ln, e, log10, exp
 from numpy import loadtxt, zeros
-import numpy as np
 from time import time, sleep
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
