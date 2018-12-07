@@ -10,13 +10,14 @@ from time import time
 from astropy.table import Table, Column 
 from astropy.io import ascii
 from math import sqrt, pi, sin, cos, log as ln, e, log10, exp
-from numpy import loadtxt, zeros
+from numpy import loadtxt, zeros, matmul
 import numpy as np
 from time import time, sleep
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
 from wpfunc4hod import wpfunc,wpfunc10c
 import warnings
+from numpy.linalg import inv
 
 #
 ######################################################################
@@ -41,7 +42,19 @@ def xi2(data, up_err, down_err, model):
   
   return Xi**2,model
 ######################################################################
+def xi2_cov(data,icov,model):
+  
+  Xi =0
+  for i in range(len(data)):
+       
+      for j in range(len(data)):
+          
+         Xi2 += (data[i]-model[i])*icov[i,j]*(data[j]-model[j])
+               
+  return Xi2,model         
+        
 
+######################################################################
 def Xi2(fsat, Mm):
   warnings.filterwarnings('ignore')
   #dat = loadtxt('rp_wp_err.dat')#wpobs_err_4mcmc.dat
@@ -62,7 +75,28 @@ def Xi2(fsat, Mm):
   
   return chisq,model
 ######################################################################
+def Xi2_cov(fsat, Mm):
+  warnings.filterwarnings('ignore')
+  #dat = loadtxt('rp_wp_err.dat')#wpobs_err_4mcmc.dat
 
+  dat = loadtxt('rp_wp_err_ONLY1KDE.dat')
+  rp = dat[:,0]
+  wpobs = dat[:,1]
+  uerr = dat[:,2]
+  cov = loadtxt('covmatrix_eboss.dat')
+  icov = inv(cov)
+  
+  rp = np.asarray(rp)
+  wpobs = np.asarray(wpobs)
+  uerr= np.asarray(uerr)
+  lerr = uerr
+   
+  z,nqobs,om0,delta_vir,kmin,kmax,M_star,dx,delm = 1.55,6.46178e-06,0.308,200.,0.01,1000,2.e13,0.5,0.75
+  
+  chisq,model = xi2_cov(wpobs, icov, wpfunc(z,nqobs,rp,Mm,fsat,delm,kmin,kmax,dx, B=0))
+  
+  return chisq,model
+  ####################################################################
 def main():
 
 #### M A I N 
@@ -84,9 +118,12 @@ def main():
  sigma_fsat  = 0.3*fsat      # c guess value, arbitrary 
 
 #### 
- xhi2, model = Xi2(fsat, Mm)
- chi2 = sum(xhi2)
-
+ #xhi2, model = Xi2(fsat, Mm)
+ xhi2_cov, model = Xi2_cov(fsat, Mm)
+ 
+ #chi2 = sum(xhi2)
+ chi2 = sum(xhi2_cov)
+ 
  filename = 'results_seed'+str(sd)+'_nchain'+str(nchain)+'_2pars_fsat'+str(fsat)+'_Mm'+str(Mm)+'_delm'+str(delm)+'.txt'
   
  F = open(filename,'w')
