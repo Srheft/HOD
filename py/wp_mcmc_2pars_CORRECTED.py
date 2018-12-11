@@ -6,22 +6,16 @@ from matplotlib import rc, rcParams
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 import numpy as np
 from math import *
-from time import time
+from time import time,sleep
 from astropy.table import Table, Column 
 from astropy.io import ascii
 from math import sqrt, pi, sin, cos, log as ln, e, log10, exp
-<<<<<<< HEAD
 from numpy import loadtxt, zeros, matmul
-import numpy as np
-=======
-from numpy import loadtxt, zeros
->>>>>>> 2aa9eff3dd86104bcd7de06bef2b63f32d8b309f
-from time import time, sleep
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
 from wpfunc4hod import wpfunc,wpfunc10c
 import warnings
-from numpy.linalg import inv
+from numpy.linalg import inv,norm
 
 #
 ######################################################################
