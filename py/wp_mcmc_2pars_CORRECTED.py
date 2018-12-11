@@ -11,6 +11,12 @@ from astropy.table import Table, Column
 from astropy.io import ascii
 from math import sqrt, pi, sin, cos, log as ln, e, log10, exp
 from numpy import loadtxt, zeros, matmul
+<<<<<<< HEAD
+=======
+import numpy as np
+from numpy import loadtxt, zeros
+from time import time, sleep
+>>>>>>> 008d9fa03f8ccf818d5c99522ccfee25720d537f
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
 from wpfunc4hod import wpfunc,wpfunc10c
