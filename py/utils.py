@@ -1,5 +1,12 @@
 
-   if verbose:
+from time import clock, sleep, time
+import IO
+from glob import glob
+import pickle
+from sys import argv
+from numpy import *
+
+if verbose:
          print 'Loaded random catalogue....t =',time()-self.s,'sec'
          print rantop-1, 'points in random catalogue'
 
