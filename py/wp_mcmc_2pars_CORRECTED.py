@@ -146,7 +146,8 @@ def main():
     
     if all([fsat_new > 0.005,fsat_new <0.09 ,Mm_new >1.e11 ,Mm_new <1.e15]):  
         
-      xhi2_new, model_new = Xi2(fsat_new, Mm_new)
+      #xhi2_new, model_new = Xi2(fsat_new, Mm_new)
+      xhi2_new, model_new = Xi2_cov(fsat_new, Mm_new)
       chi2_new = sum(xhi2_new)
             
       delta_chi2 = chi2-chi2_new
