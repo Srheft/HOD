@@ -179,7 +179,7 @@ def main():
          
          if i%10==0:
              myTable.write(filename, format='ascii.fixed_width',delimiter=' ', bookend=False)
-             print i, chi2
+             print(i, chi2)
          i+=1   # loop index
  
  myTable.write(filename, format='ascii.fixed_width',delimiter=' ', bookend=False)
