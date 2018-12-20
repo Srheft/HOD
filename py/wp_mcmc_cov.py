@@ -29,10 +29,7 @@ def covmaker(wpfile):
     cov=np.zeros((len(rp),len(rp)))
 
     if np.shape(dat)[1] < 4:
-        
-         print('No measured covariance, making it form wp measurement')
-         print('Warning: CHECK THE INPUT FILE FORMAT! - The assumption for the format of the input file is: col1: rp[Mpc/h], col2:wp[Mpc/h], col3:wperr')
-         
+
          for i in range(len(rp)):
              
             cov[i,i]=wperr[i]**2.
@@ -110,6 +107,11 @@ def Xi2_cov(wpfile,fsat, Mm):
   warnings.filterwarnings('ignore')
   
   dat = loadtxt(wpfile)
+
+  if np.shape(dat)[1] < 4:      
+         print('No measured covariance, making it form wp measurement')
+         print('Warning: CHECK THE INPUT FILE FORMAT! - The assumption for the format of the input file is: col1: rp[Mpc/h], col2:wp[Mpc/h], col3:wperr')
+         
   rp = dat[:,0]
   wpobs = dat[:,1]
   uerr = dat[:,2]
