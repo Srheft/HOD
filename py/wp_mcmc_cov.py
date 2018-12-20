@@ -107,10 +107,6 @@ def Xi2_cov(wpfile,fsat, Mm):
   warnings.filterwarnings('ignore')
   
   dat = loadtxt(wpfile)
-
-  if np.shape(dat)[1] < 4:      
-         print('No measured covariance, making it form wp measurement')
-         print('Warning: CHECK THE INPUT FILE FORMAT! - The assumption for the format of the input file is: col1: rp[Mpc/h], col2:wp[Mpc/h], col3:wperr')
          
   rp = dat[:,0]
   wpobs = dat[:,1]
@@ -137,7 +133,11 @@ def main():
 #### Initial Values - Arbitrary - Change them to see their effect
 #### Convergence must happen with a good
 #set of results .... 
- wpfile = sys.argv[1]
+wpfile = sys.argv[1]
+dat = loadtxt(wpfile)
+if np.shape(dat)[1] < 4:      
+         print('No measured covariance, making it form wp measurement')
+         print('Warning: CHECK THE INPUT FILE FORMAT! - The assumption for the format of the input file is: col1: rp[Mpc/h], col2:wp[Mpc/h], col3:wperr')
 
  sd = sys.argv[2]
  
