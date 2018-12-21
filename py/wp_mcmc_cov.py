@@ -11,7 +11,6 @@ from astropy.table import Table, Column
 from astropy.io import ascii
 from math import sqrt, pi, sin, cos, log as ln, e, log10, exp
 from numpy import loadtxt, zeros
-import numpy as np
 from time import time, sleep
 import HODemceeFIT_v4
 from HODemceeFIT_v4 import biasint
@@ -29,7 +28,10 @@ def covmaker(wpfile):
     cov=np.zeros((len(rp),len(rp)))
 
     if np.shape(dat)[1] < 4:
-
+        
+         print('No measured covariance, making it form wp measurement')
+         print('Warning: CHECK THE INPUT FILE FORMAT! - The assumption for the format of the input file is: col1: rp[Mpc/h], col2:wp[Mpc/h], col3:wperr')
+         
          for i in range(len(rp)):
              
             cov[i,i]=wperr[i]**2.
@@ -72,14 +74,12 @@ def xi2_cov(data,icov,model):
       for j in range(len(data)):
         #SE: see eq 5 of Eftekharzadeh et al 2015 
          Xi2 += (data[i]-model[i])*icov[i,j]*(data[j]-model[j]) 
-         # print(i,Xi2)     
   return Xi2,model         
 ######################################################################
 
 def Xi2(wpfile,fsat, Mm):
     
   warnings.filterwarnings('ignore')
-  #dat = loadtxt('rp_wp_err.dat')#wpobs_err_4mcmc.dat
 
   dat = loadtxt(wpfile)
   rp = dat[:,0]
@@ -94,12 +94,7 @@ def Xi2(wpfile,fsat, Mm):
   z,nqobs,om0,delta_vir,kmin,kmax,M_star,dx,delm = 1.55,6.46178e-06,0.308,200.,0.01,1000,2.e13,0.5,0.75
   
   chisq,model = xi2(wpobs, uerr, lerr, wpfunc(z,nqobs,rp,Mm,fsat,delm,kmin,kmax,dx, B=0))
-  #sum = 0. 
-  #for i in range(len(rp)):
-    
-    ##sum += xi2(b[i], uerr[i], lerr[i], c+a*(1+z[i])**2)
-     #sum += xi2(wpobs[i], uerr[i], lerr[i], wpfunc(z,nqobs,rp[i],Mm,fsat,delm,kmin,kmax,dx, B=0)[i])
-  #return sum  
+
   return chisq,model
 ######################################################################
 def Xi2_cov(wpfile,fsat, Mm):
@@ -107,14 +102,12 @@ def Xi2_cov(wpfile,fsat, Mm):
   warnings.filterwarnings('ignore')
   
   dat = loadtxt(wpfile)
-         
   rp = dat[:,0]
   wpobs = dat[:,1]
   uerr = dat[:,2]
   #SE: if the NORMALIZED covariance matrix is stored in a separate ascii file, then we can go there   
   cov = covmaker(wpfile)#loadtxt('covar_4KDE+eBOSS.dat')  
   icov = inv(cov)
-  #print(icov) 
   rp = np.asarray(rp)
   wpobs = np.asarray(wpobs)
   uerr= np.asarray(uerr)
@@ -154,14 +147,11 @@ if np.shape(dat)[1] < 4:
  sigma_fsat  = 0.3*fsat      # c guess value, arbitrary 
 
 #### 
- #xhi2, model = Xi2(wpfile,fsat, Mm)
  print('Starting ...')
  start = time()
  xhi2_cov, model = Xi2_cov(wpfile,fsat, Mm)
  print('Done calculating the model =',(time()-start),'sec')
 
- #chi2 = sum(xhi2)
- #Sum has been done inside the function 
  chi2 = xhi2_cov 
  
  filename = 'results_seed'+str(sd)+'_nchain'+str(nchain)+'_2pars_fsat'+str(fsat)+'_Mm'+str(Mm)+'_delm'+str(delm)+'.txt'
@@ -188,10 +178,9 @@ if np.shape(dat)[1] < 4:
     
     if all([fsat_new > 0.008,fsat_new <0.080 ,Mm_new >1.e12 ,Mm_new <1.e15]):  
       
-      #xhi2_new, model_new = Xi2(wpfile,fsat_new, Mm_new)    
       xhi2_new, model_new = Xi2_cov(wpfile,fsat_new, Mm_new)
       
-      chi2_new = xhi2_new#sum(xhi2_new)
+      chi2_new = xhi2_new
             
       delta_chi2 = chi2-chi2_new
       
@@ -209,13 +198,7 @@ if np.shape(dat)[1] < 4:
          chi2 = chi2_new
          model = model_new
          
-         #modr = np.logspace(log10(3.40e-2),log10(1.1),num=10, endpoint=True )
-         
-         #wpmodr= wpfunc(z,nqobs,modr,Mm,fsat,delm, 0.01, 1000, 0.5, B=0)
-
-         #allwp = model[0:4]+wpmodr+model[4:19]
-         
-         allwp = model#[0:4]+model[4:model.shape[0]-1]
+         allwp = model
          row = [i, fsat, Mm, delm, chi2]
          for l in range(len(allwp)):
              row.append(allwp[l])
