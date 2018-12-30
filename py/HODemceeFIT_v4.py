@@ -307,7 +307,7 @@ def biasint(z,nqobs,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #ADM the log interval in mass for dlog10M in the integrator
+    #the log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
@@ -365,7 +365,7 @@ def biasint2(z,nqobs,bctrl,delm,Mm):
     numsum = 0
     denomsum = 0
 
-    #ADM the log interval in mass for dlog10M in the integrator
+    #the log interval in mass for dlog10M in the integrator
     
     for i in range(len(M)-1):
           dlog10M = log10(M[i+1]/M[i])
@@ -472,11 +472,6 @@ def rvir(om0,delta_vir,M):
    #c=r_vir/r_s , r_vir= R_ta/2.
    #cbar(M,z,M_star)
    #return r_vir/r_s
-#=========================== Lagrangian size ========================================================
-#def LagSize(z,theta):
-    
-    
-    
 #============================   Ci integral that is used in u(k,m) :Ci(x) =\int_{x}^{\inf} cos(t)/t dt ==============
 # SE: the formula is taken from equation 82 of Cooray and Sheth (2002)
 def ci_int(t):
