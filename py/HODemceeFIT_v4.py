@@ -26,7 +26,7 @@ import warnings
  # >>> import HODemceeFIT_v3
  # >>> HODemceeFIT_v2.wpint(1.4,7.6*0.001,0.75,1.33e13,0.054,0.11,1.1054046050405841e11,3.135,40,80)  ; ~ 460
  # >>> HODemceeFIT_v2.P1hint_one(1.4,7.6*0.001,0.75,1.33e13,0.054,0.11,1.1054046050405841e11,3.135,40,80)  
-
+#### NOTE: The ellipsoidal collapse class was not originally written by me, I only altered parts of this to accomodate the HOD model 
 class ellipsoidalcollapse:
 
     def __init__(self,omega=0.307,lamda=0.693,sig8=0.8137,gams=0.21,acc=1e-9,H0=67.8,omb=0.045):
