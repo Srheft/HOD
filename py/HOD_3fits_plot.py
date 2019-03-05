@@ -242,8 +242,8 @@ def stats(seed,nchain,pars,plots=False):
   ax= fig.add_subplot(111)
       
   # axes limits
-  x1=0.01; x2=90
-  y1=0.2; y2=3.e5
+  x1=0.01; x2=100
+  y1=0.14; y2=3.e5
 
   # Genral axes
   ax.set_xlim(x1, x2)
