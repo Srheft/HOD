@@ -125,7 +125,7 @@ if (keyword_set(hardcopy)) then PS_start,filename='FIG1_dNdz.eps',/encapsulated,
   oplot,reverse([edges[n_elements(edges)-1],midz[n_elements(midz)-2]]),intarr(2)+(alt_nh_cp)[n_elements(histZcp)-1],color=cgcolor('red'),linestyle=5
   oplot,reverse([edges[n_elements(edges)-1],midz[n_elements(midz)-2]]),intarr(2)+(1/binsize)*(histZeb/total(histZeb))[n_elements(histZeb)-1],color=cgcolor('blue')
   
-  ; ********************  ***************************************************** ****************
+  ; *****************************************************************************************
  
    xyouts,2.1,1.60,'___  eBOSS',color= cgcolor('blue'),charsize=1.4
    xyouts,2.1,1.48,'_ _ _  KDE ',color= cgcolor('red'),charsize=1.4
