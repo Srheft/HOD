@@ -248,7 +248,7 @@ xyouts,0.8,0.85,'_ _ _  KDE ',color= cgcolor('red'),charsize=1.5
 
 if (keyword_set(hardcopy)) then PS_end,/png
  
-
+;NOTE: this was used for past HOD paper
   
 stop
 end
