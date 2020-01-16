@@ -12,7 +12,7 @@ Halo Occupation playground
 # 149,416 NGC-LRG, 4,397,705 Random
 # 115,969 SGC-LRG, 4,018,148 Random
 
-
+# DD_s_eBOSS_QSO_NGC_v7_1.fits ---> 19 bins from 40 kpc/h till ~200 Mpc/h
 
 #eBOSS_LRG_clustering_NGC_v7_COMP_BOSS.ran  --> 4 files NGC or SGC lrgs and qsos
 **ii)** the 'eBOSS_QSO_clustering_*_v7_1_COMP_BOSS.ran.fits' are the randoms to be used for the 2PCF measurements of the eBOSS clustering catalogues. These are exactly the catalogues you can find on wiki except the two SEQUELS chunks that are removed and the WEIGHT_SYSTOT is rescaled by COMP_BOSS since the PIP weights already account for the completeness;
