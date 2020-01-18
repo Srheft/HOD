@@ -24,3 +24,7 @@ Halo Occupation playground
  #weights_tiled_QSO_eBOSS_SGC_31x60_trimm_promoted_v7_no-obs.dat
  
   These are ASCII files with columns EBOSS_TARGET_ID, RA, DEC, Z (neglect Z) and a sequence of 60 columns that contain the bitwise weights resulting from the 1860 fiber assignment runs. The first bit in the first of these 60 columns is the outcome of the actual eBOSS tiling run while the remaining bits are random realizations of the tiling. 
+
+
+see the catalog analysis here /git_repo/HOD/catalogs.ipynb
+/git_repo/HOD/catalogs.ipynb
