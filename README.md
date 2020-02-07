@@ -33,3 +33,4 @@ Halo Occupation playground
 
 see the catalog analysis here /git_repo/HOD/catalogs.ipynb
 /git_repo/HOD/catalogs.ipynb
+/git_repo/HOD/weighted_DD.ipynb
