@@ -34,3 +34,9 @@ Halo Occupation playground
 see the catalog analysis here /git_repo/HOD/catalogs.ipynb
 /git_repo/HOD/catalogs.ipynb
 /git_repo/HOD/weighted_DD.ipynb
+
+# Findings
+Not all quasars in NGC_v7_1 have the same length of number of fiberassign trials (I assumed to get 1860 length after converting the PIP weight into sequence of zeros and ones) yet I get a range of 1768 to 1860. then the multiplication of two of the weights, would have to be cut to the shared length.
+
+
+
