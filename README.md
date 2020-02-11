@@ -25,7 +25,7 @@ Halo Occupation playground
  # My products
   DD_s_eBOSS_QSO_NGC_v7_1.fits ---> 19 bins from 40 kpc/h till ~200 Mpc/h
 
-  'eBOSS_QSO_clustering_NGC_v7_1_ids_zerosones.fits' ---> converted the base-2 binaries in weights*.dat files to the sequence of 1860 long sequence of zeos and ones and stored it as a string in the last column of this file. 
+  'eBOSS_QSO_clustering_NGC_v7_1_ids_zerosones.fits' ---> converted the base-2 binaries in weights*.dat files to the sequence of 1860 long sequence of zeos and ones and stored it as a string in the last column of this file.---> the problem is resoved: use firmat(bit,"031b") NOT format(bit,"b"). This would ensure equal length for all bits.
 
  
   These are ASCII files with columns EBOSS_TARGET_ID, RA, DEC, Z (neglect Z) and a sequence of 60 columns that contain the bitwise weights resulting from the 1860 fiber assignment runs. The first bit in the first of these 60 columns is the outcome of the actual eBOSS tiling run while the remaining bits are random realizations of the tiling. 
