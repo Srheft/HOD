@@ -58,7 +58,7 @@ if __name__ == '__main__':
   w = w[indices]
  
   # Python equivalent of matchlength
-  radius_in_deg = 5.  # degrees
+  radius_in_deg = 10.  # degrees   10 deg separation at z=1.5 is 212 Mpc/h which is above the upper edge of the last bin.
   
   size = len(ra)
   doJob = True
