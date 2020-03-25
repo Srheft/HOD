@@ -18,25 +18,6 @@ from astropy.io import fits
 ## k3match, uncomment this line 
 #from k3match import *
 #################################################################
-
-
-#################################################################
-def my_shuffle(array):
-        random.seed(0)
-        random.shuffle(array)
-        return array
-#################################################################
-
-def angleto3Dradius(angle, isDegree=True):
-  
-  if isDegree:
-    angle = angle*pi/180.
-  
-  
-  return sqrt((sin(angle))**2 + (1-cos(angle))**2)
-
-#################################################################
-
       
 if __name__ == '__main__':
   
@@ -51,8 +32,6 @@ if __name__ == '__main__':
 
   indices = np.arange(len(ra))
  
-  indices = my_shuffle(indices)
- 
   ra = ra[indices]
   dec = dec[indices]
   w = w[indices]
@@ -61,7 +40,15 @@ if __name__ == '__main__':
   radius_in_deg = 10.  # degrees   10 deg separation at z=1.5 is 212 Mpc/h which is above the upper edge of the last bin.
   
   size = len(ra)
-  doJob = True
+  doJob = True​
+17
+## If you are going to use 
+18
+## k3match, uncomment this line 
+19
+#from k3match import *
+20
+###
   p = 10000
   
   n_cpu =  int(sys.argv[1])
