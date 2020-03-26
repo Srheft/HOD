@@ -65,24 +65,17 @@ if __name__ == '__main__':
   if up<low or up<0 or low<0:
       doJob = False
   
-  
   if doJob:
 
       ra_small = ra[low:up]
       dec_small = dec[low:up]
       w_small = w[low:up]
-      
-
     
       print("No.: ", n, "Go ... ")
-      
-      
-  
+     
       time0 = time()
-      
    
       (m1,m2,distance) = spherematch.match_radec(ra_small, dec_small, ra, dec, radius_in_deg,notself=True)
-
 
       writeFits = True
       if writeFits:
