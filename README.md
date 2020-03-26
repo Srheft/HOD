@@ -12,16 +12,22 @@ Halo Occupation playground
    LRG => 0.6  < z < 1.0
    
    ELG => 0.6  < z < 1.1
+   
 
    NGC_QSOs    191,430
+   
    NGC_LRG     149,416
+   
    NGC_ELG     83,769
+   
 
    SGC_QSOs    125,899
    
    SGC_LRG     115,969
    
    SGC_ELG     89,967
+   
+   
 
 LRGs and QSO overlap in 0.8 < z < 1.0 
 
