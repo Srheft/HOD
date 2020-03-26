@@ -6,18 +6,26 @@ Halo Occupation playground
 # Catalogs
   moved to version 7.2 of randoms and data for quasars;  
 
+
    QSO => 0.8  < z < 2.2
+   
    LRG => 0.6  < z < 1.0
+   
    ELG => 0.6  < z < 1.1
 
    NGC_QSOs    191,430
+   
    NGC_LRG     149,416
+   
    NGC_ELG     83,769
 
    SGC_QSOs    125,899
+   
    SGC_LRG     115,969
+   
    SGC_ELG     89,967
 
+LRGs and QSO overlap in 0.8 < z < 1.0 
 
  #hod_utah_eboss_NGC_v7_trimm_legacy_no-obs
 **i)** the 'eBOSS_QSO_hod_utah_eboss_*_v7_trimm_legacy_no-obs.*.fits' contain all objects within the geometry of the clustering catalogues that do not fall in one of the veto masks (except the collision priority veto mask). These are the catalogues to be used to compute the 'angular weights'. The angular weights are the ratio between the raw DD(DR) pair counts (do not use any weight here) of all targets and the PIP-corrected DD(DR) pairs (again do not use any weight other than PIP) from objects that got a fiber in the actual eBOSS targeting (for each target this information is contained in the first bit of the bitwise weights);
