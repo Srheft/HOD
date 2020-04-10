@@ -45,11 +45,11 @@ if __name__ == '__main__':
   doJob = True
   p = 1000
   
-  n_cpu =  int(sys.argv[1])
-  batch_no = int(sys.argv[2])
-  cpu_ID = int(sys.argv[3]) 
+  #n_cpu =  int(sys.argv[1])
+  batch_no = int(sys.argv[1])
+  #cpu_ID = int(sys.argv[3]) 
   
-  n = batch_no * n_cpu + cpu_ID
+  n = batch_no #* n_cpu + cpu_ID
   low = p*n
   up = p*(n+1)
   if low <= size and up > size:
