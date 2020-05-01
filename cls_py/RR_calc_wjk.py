@@ -29,12 +29,13 @@ nbins = len(mids)
       
 if __name__ == '__main__':
   
-  path='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Mar2020/'
+  path='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/'
 
-  filename = path+'eBOSS_QSO_clustering_NGC_v7_1_withS.ran.fits'
+  filename = path+'/Mar2020/eBOSS_QSO_NGC_pip_v7_2.ran_z0.8_z2.2_withS_withPIX.fits'
   a=fitsio.read(filename)
   ra = a['RA']  
   dec = a['DEC']
+  pix = a['PIXEL']
   ### w=w_SYSTOT*w_FKP*w_NOZ
   w = a['WEIGHT_SYSTOT']*a['WEIGHT_FKP']*a['WEIGHT_NOZ']
 
@@ -65,7 +66,7 @@ if __name__ == '__main__':
       ra_small = ra[low:up]
       dec_small = dec[low:up]
       w_small = w[low:up]
-      
+      pix_small = pix[low:up]
       print("No.: ", n, "Go ... ")
       
       time0 = time()
@@ -100,10 +101,15 @@ if __name__ == '__main__':
         col3 = fits.Column(name='dist', format='D', array=distance)
         col4 = fits.Column(name='w1', format='D', array=w[m1_2])
         col5 = fits.Column(name='w2', format='D', array=w[m2])
-        cols = fits.ColDefs([col1, col2, col3,col4,col5])
+        col6 = fits.Column(name='pix1',format='K',array=pix[m1_2])
+        col7 = fits.Column(name='pix2',format='K',array=pix[m2]) 
+        col8 = fits.Column(name='s1',format='D',array=a['s'][m1_2])
+        col9 = fits.Column(name='s2',format='D',array=a['s'][m2])
+        col10 = fits.Column(name='w1w2',format='D',array=w[m2]*w[m1_2])
+        cols = fits.ColDefs([col1, col2, col3,col4,col5,col6,col7,col8,col9,col10])
         tbhdu = fits.BinTableHDU.from_columns(cols)
         # clobber = True  (it overwrites/updates)
-        tbhdu.writeto('./RR_QSO_NGC_v7_1/spherematch.'+str(int(n))+'_RR.fits', clobber=True)
+        tbhdu.writeto(path+'/RR_QSO_NGC_v7_2/spherematch.'+str(int(n))+'_RR.fits', clobber=True)
         
       #######################
       ind1 = m1 + low
@@ -113,38 +119,82 @@ if __name__ == '__main__':
       d = distance
       rp = (s1+s2)*d*pi/180./2.
       pii = abs(s1-s2)
+
       weights = w[ind1]*w[ind2]
-      arr_rp = np.zeros((10000,nbins))
-      warr_rp = np.zeros((10000,nbins))
       
-      print('start ...')
+      arr_rp_pi = np.zeros((10000,nbins))
+      
+      rp_bin_weights = np.zeros(nbins)
+               
+      print('start binning ...')
 
       for j in range(nbins):
 
         wrp  = ((rp < edges[j+1]) & (rp > edges[j]))
         arr = np.zeros(10000)
-        warr = np.zeros(10000)
-
+        
         if np.sum(wrp)>0:
-            w = weights[wrp]
+
+            rp_bin_weights[j] = np.sum(weights[wrp]) #total weights of the pairs in this bin of rp
             a = pii[wrp]
-
-            for k in range(len(a)):
-                arr[int(a[k])] += 1
-                warr[int(a[k])] += 1*w[k]
-
-        arr_rp[:,j] = arr
-        warr_rp[:,j] = warr
-       
-
-      sumarr_rp_RR = arr_rp
-      sumarr_rp_wRR = warr_rp
-
-
-      np.savetxt(path+"/RR_QSO_NGC_v7_1/wRR_2Darray_batch_"+str(int(n))+".txt", sumarr_rp_wRR)
-      np.savetxt(path+"/RR_QSO_NGC_v7_1/RR_2Darray_batch_"+str(int(n))+".txt",sumarr_rp_RR)
-     
+            arr,b = np.histogram(a,bins=np.arange(10001))
+             
+        arr_rp_pi[:,j] = arr
+             
       
+      ####### JACKKNIF:  getting RR pairs in pixels:
+      print([ind1])
+      pixx1 = pix[ind1]
+      pixx2 = pix[ind2]
+      inpix = (pixx1 == pixx2)
+
+      #import healpy as hp
+      #nside = 16 
+      #NPIX = hp.nside2npix(nside)
+      npix = 3072  # nside =16 -> total number of pixels NPIX = 3072
+
+      RR_jk = np.zeros((npix,nbins))
+
+      pixes = np.unique(pixx1)
+
+      weights_RR_pix = np.zeros((npix,nbins))
+
+      for p in list(pixes):
+
+          ind = (pixx1 == p)
+          pind = pixx2[ind]
+          rp_pix = rp[pind]
+          pii_pix = pii[pind]
+          weights_pix = weights[pind]
+          inp = (pind == p)
+          rp_jk = rp_pix[inp] 
+          pii_jk = pii_pix[inp]
+          
+          weights_jk = weights_pix[inp]
+          
+          arr_rp_pi_jk = np.zeros((npix,10000,nbins))
+         
+          rp_bin_weights_jk = np.zeros((npix,nbins))
+
+          for j in range(nbins):
+
+              wrp  = ((rp_jk < edges[j+1]) & (rp_jk > edges[j]))
+
+              rp_bin_weights_jk[p,j] = np.sum(weights_jk[wrp])
+              
+              arr = np.zeros(10000)
+              if np.sum(wrp)>0:                  
+                  a = pii_jk[wrp]
+                  arr,b = np.histogram(a,bins=np.arange(10001))
+                  arr_rp_pi_jk[p,:,j] = arr  # [:,j] is the j-th column of the xi   
+      #np.savetxt(path+"/RR_QSO_NGC_v7_2/wRR_2Darray_batch_"+str(int(n))+".txt", sumarr_rp_wRR)
+      #np.savetxt(path+"/RR_QSO_NGC_v7_2/RR_2Darray_batch_"+str(int(n))+".txt",sumarr_rp_RR)
+      np.savez_compressed(path+"/Apr2020/RR_QSO_NGC_v7_2/wRR_2Darray_batch_"+str(int(n))+".npz", WEIGHTS =rp_bin_weights,XI_RP_PII=arr_rp_pi,PIX_WEIGHTS=rp_bin_weights_jk ,PIX_XI_RP_PI=arr_rp_pi_jk) 
+
+      #grid = np.load(path+'test.npz')
+
+      #grid['X'] = sumarr_rp_wRR
+
       print('')
       print("run_time = ", (time()-time0)/60., 'min')
       print("# of total matches:", len(distance))
