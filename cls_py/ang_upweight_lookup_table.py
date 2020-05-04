@@ -25,7 +25,6 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
     ledges = np.round(np.arange(0,9.9,0.1),3)
     hedges = np.round(np.arange(0.1,10,0.1),3)
     mids = np.round((ledges+hedges)/2,3)
-    #print(list(zip(list(ledges),list(hedges),list(mids))))
     nbins = len(mids)
 
     dd_par = np.zeros(len(mids))
@@ -53,10 +52,7 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
             dd_fb[i] += np.sum(w_fb)
 
             print('Finished bin #{}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {}'.format(i,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i]))
-       
-       # sephist,b = np.histogram(angsep,bins = [0,0.1,.3,.4,.5])
-       # print(sephist,b)
-   
+          
 angup = dd_par/dd_fb      
 
 
