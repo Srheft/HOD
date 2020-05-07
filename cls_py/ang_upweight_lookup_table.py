@@ -10,6 +10,10 @@ from time import time
 path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Apr2020/'
 DDpath = path+'/DD_QSO_NGC_v7_2/'
 
+
+max_ang = 3.0
+binsize=0.003
+
 start = time()
 give_arr=True
 
@@ -22,9 +26,10 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
     files = glob.glob(DDpath+'*.fits')
 
     
-    ledges = np.round(np.arange(0,9.9,0.1),3)
-    hedges = np.round(np.arange(0.1,10,0.1),3)
+    ledges = np.round(np.arange(0,max_ang,binsize),3)
+    hedges = np.round(np.arange(binsize,binsize+max_ang,binsize),3)
     mids = np.round((ledges+hedges)/2,3)
+    #print(list(zip(list(ledges),list(hedges),list(mids))))
     nbins = len(mids)
 
     dd_par = np.zeros(len(mids))
@@ -52,7 +57,10 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
             dd_fb[i] += np.sum(w_fb)
 
             print('Finished bin #{}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {}'.format(i,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i]))
-          
+       
+       # sephist,b = np.histogram(angsep,bins = [0,0.1,.3,.4,.5])
+       # print(sephist,b)
+   
 angup = dd_par/dd_fb      
 
 
@@ -77,7 +85,7 @@ if write_table:
     cc = Column(angup,name='AngUpWeight')
     a.add_column(cc,index=0)
 
-    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable.fits')
+    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'.fits')
     
 print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
     
