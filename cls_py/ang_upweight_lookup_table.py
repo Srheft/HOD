@@ -7,7 +7,7 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Apr2020/'
+path = 'utahsyspath+/sarahE/eboss/Apr2020/'
 DDpath = path+'/DD_QSO_NGC_v7_2/'
 
 
@@ -15,9 +15,10 @@ max_ang = 3.0
 binsize=0.003
 
 start = time()
-give_arr=True
+#give_arr=True
 
-if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
+#if give_arr: 
+if not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
 
     cat = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
     qso = fitsio.read(cat)
