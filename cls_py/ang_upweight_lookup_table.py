@@ -16,11 +16,14 @@ binsize=0.003
 
 start = time()
 #give_arr=True
+write_table = False # default
 
 #if give_arr: 
-if not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
+if not os.path.exists(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'.fits'):    # True
+    
+    write_table = True
 
-    cat = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
+    cat = 'utahsyspath+/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
     qso = fitsio.read(cat)
 
     status = qso['STATUS']
@@ -30,7 +33,6 @@ if not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
     ledges = np.round(np.arange(0,max_ang,binsize),3)
     hedges = np.round(np.arange(binsize,binsize+max_ang,binsize),3)
     mids = np.round((ledges+hedges)/2,3)
-    #print(list(zip(list(ledges),list(hedges),list(mids))))
     nbins = len(mids)
 
     dd_par = np.zeros(len(mids))
@@ -59,13 +61,10 @@ if not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
 
             print('Finished bin #{}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {}'.format(i,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i]))
        
-       # sephist,b = np.histogram(angsep,bins = [0,0.1,.3,.4,.5])
-       # print(sephist,b)
    
 angup = dd_par/dd_fb      
 
 
-write_table = True
 
 if write_table:
 
@@ -88,6 +87,8 @@ if write_table:
 
     a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'.fits')
     
-print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
-    
+    print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
+
+ else:
+    print('The requested look up table already exist here: {}'.format(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'.fits'))
    
