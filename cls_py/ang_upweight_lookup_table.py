@@ -7,11 +7,13 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
-path = 'utahsyspath+/sarahE/eboss/Apr2020/'
+utahsyspath= 'for security reasons this is redacted in public codes'
+
+path = utahsyspath+'/sarahE/eboss/Apr2020/'
 DDpath = path+'/DD_QSO_NGC_v7_2/'
 
 
-max_ang = 3.0
+max_ang = 1.0
 binsize=0.003
 
 start = time()
@@ -23,7 +25,7 @@ if not os.path.exists(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_a
     
     write_table = True
 
-    cat = 'utahsyspath+/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
+    cat = utahsyspath+'/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
     qso = fitsio.read(cat)
 
     status = qso['STATUS']
@@ -55,6 +57,7 @@ if not os.path.exists(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_a
 
             dd_par[i] += np.sum(wt)
     
+            # both members of the pair have to have gotten a fiber --> i.e., the 0 bit has to be flipped
             w_fb = (((2**0 & stat1[wt]) !=0) & ((stat2[wt] & 2**0) !=0))
           
             dd_fb[i] += np.sum(w_fb)
