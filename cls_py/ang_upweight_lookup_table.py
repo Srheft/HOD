@@ -25,7 +25,7 @@ if not os.path.exists(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_a
     
     write_table = True
 
-    cat = utahsyspath+'/sarahE/eboss/Mar2020/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
+    cat = path+'/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
     qso = fitsio.read(cat)
 
     status = qso['STATUS']
