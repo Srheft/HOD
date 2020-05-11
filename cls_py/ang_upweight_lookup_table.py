@@ -7,9 +7,9 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
-utahsyspath= 'for security reasons this is redacted in public codes'
 
-path = utahsyspath+'/sarahE/eboss/Apr2020/'
+path = 'for security reasons this is redacted in public codes'
+
 DDpath = path+'/DD_QSO_NGC_v7_2/'
 
 
