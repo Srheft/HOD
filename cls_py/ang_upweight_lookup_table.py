@@ -7,8 +7,8 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
-path = 'redacted for security'
-DDpath = path+'/DD_QSO_NGC_v7_2_319636/'
+path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/'
+DDpath = path+'/DD_QSO_NGC_v7_2/'
 
 
 max_ang = 0.1
@@ -19,7 +19,7 @@ give_arr=True
 
 if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
 
-    cat = path+'/eBOSS_QSO_NGC_pip_v7_2.dat_319636_withS.fits'
+    cat = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/eBOSS_QSO_NGC_pip_v7_2.dat_withS.fits'
     qso = fitsio.read(cat)
     z = qso['Z']
     ebid = qso['EBOSS_TARGET_ID']
@@ -59,9 +59,7 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
             i2 = ind2[wt]
             
             dd_par[i] += np.sum(wt)
-            ## both members are in clustering catalog
-            #w_fb = (((2**1 & stat1[wt]) !=0) & ((stat2[wt] & 2**1) !=0))
-            # both members got a fiber
+    
             w_fb = (((2**0 & stat1[wt]) !=0) & ((stat2[wt] & 2**0) !=0))
             
             if np.sum(w_fb) >0 :
@@ -128,7 +126,7 @@ if write_table:
     cc = Column(pip_fb,name='pipsforDD_fib')
     a.add_column(cc,index=0)
 
-    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'_319636.fits')
+    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'_ALLTARGETS.fits')
     
 print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
     
