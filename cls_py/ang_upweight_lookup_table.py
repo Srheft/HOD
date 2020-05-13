@@ -7,7 +7,7 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/'
+path = 'redacted for security'
 DDpath = path+'/DD_QSO_NGC_v7_2_319636/'
 
 
@@ -19,7 +19,7 @@ give_arr=True
 
 if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
 
-    cat = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/eBOSS_QSO_NGC_pip_v7_2.dat_319636_withS.fits'
+    cat = path+'/eBOSS_QSO_NGC_pip_v7_2.dat_319636_withS.fits'
     qso = fitsio.read(cat)
     z = qso['Z']
     ebid = qso['EBOSS_TARGET_ID']
@@ -59,8 +59,10 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
             i2 = ind2[wt]
             
             dd_par[i] += np.sum(wt)
-    
-            w_fb = (((2**1 & stat1[wt]) !=0) & ((stat2[wt] & 2**1) !=0))
+            ## both members are in clustering catalog
+            #w_fb = (((2**1 & stat1[wt]) !=0) & ((stat2[wt] & 2**1) !=0))
+            # both members got a fiber
+            w_fb = (((2**0 & stat1[wt]) !=0) & ((stat2[wt] & 2**0) !=0))
             
             if np.sum(w_fb) >0 :
 
