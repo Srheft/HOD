@@ -34,8 +34,8 @@ def angleto3Dradius(angle, isDegree=True):
       
 if __name__ == '__main__':
   
-  rpath='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Mar2020/'
-  dpath = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/Mar2020/'
+  rpath='redacted for security'
+  dpath = 'redacted for security'
   dfilename = dpath+'eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
   rfilename = rpath+'eBOSS_QSO_NGC_pip_v7_2.ran_z0.8_z2.2_withS_withPIX.fits'
   

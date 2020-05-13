@@ -29,7 +29,7 @@ nbins = len(mids)
       
 if __name__ == '__main__':
   
-  path='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/'
+  path='redacted for security purposes'
 
   filename = path+'/Mar2020/eBOSS_QSO_NGC_pip_v7_2.ran_z0.8_z2.2_withS_withPIX.fits'
   a=fitsio.read(filename)
