@@ -7,14 +7,11 @@ import os, sys, glob
 from astropy.table import Table,Column
 from time import time
 #### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
+path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/'
+DDpath = path+'/DD_QSO_NGC_v7_2_319636/'
 
 
-path = 'for security reasons this is redacted in public codes'
-
-DDpath = path+'/DD_QSO_NGC_v7_2/'
-
-
-max_ang = 1.0
+max_ang = 0.1
 binsize=0.003
 
 start = time()
@@ -22,7 +19,7 @@ give_arr=True
 
 if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    # True
 
-    cat = path+'/eBOSS_QSO_NGC_pip_v7_2.dat_z0.8_z2.2_withS_withPIX.fits'
+    cat = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/eBOSS_QSO_NGC_pip_v7_2.dat_319636_withS.fits'
     qso = fitsio.read(cat)
     z = qso['Z']
     ebid = qso['EBOSS_TARGET_ID']
@@ -94,13 +91,13 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
  
             dd_fb[i] += np.sum(w_fb)
             pip_fb[i] += np.sum(pips) 
-            print('Finished bin #{} in batch {}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {},{}'.format(i,batch,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i], dd_par[i]/pip_fb[i], dd_par[i]*pip_fb[i]))
+            print('Finished bin #{} in batch {}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {},{}'.format(i,batch,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i], dd_par[i]/pip_fb[i]))
        
        # sephist,b = np.histogram(angsep,bins = [0,0.1,.3,.4,.5])
        # print(sephist,b)
    
 angup = dd_par/dd_fb      
-angupw = dd_par/dd_fb/pips
+angupw = dd_par/pip_fb
 
 write_table = True
 
@@ -126,10 +123,10 @@ if write_table:
     cc = Column(angupw,name='AngUpWeight_wpip')
     a.add_column(cc,index=0)
 
-    cc = Column(pips,name='pipsforDD_fib')
+    cc = Column(pip_fb,name='pipsforDD_fib')
     a.add_column(cc,index=0)
 
-    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'.fits')
+    a.write(path+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'_319636.fits')
     
 print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
     
