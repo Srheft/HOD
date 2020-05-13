@@ -93,8 +93,7 @@ if give_arr: #not os.path.exists(path+'/NGC_QSO_v7_2_pairs_stat_sep.fits'):    #
             pip_fb[i] += np.sum(pips) 
             print('Finished bin #{} in batch {}:  {} < theta[deg] < {}: DD_pair/DD_fib = {}, total upweight for the bin so far: {},{}'.format(i,batch,ledges[i],hedges[i],np.sum(wt)/np.sum(w_fb),dd_par[i]/dd_fb[i], dd_par[i]/pip_fb[i]))
        
-       # sephist,b = np.histogram(angsep,bins = [0,0.1,.3,.4,.5])
-       # print(sephist,b)
+
    
 angup = dd_par/dd_fb      
 angupw = dd_par/pip_fb
