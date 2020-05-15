@@ -44,10 +44,6 @@ LRGs and QSO overlap in 0.8 < z < 1.0
 **ii)** the 'eBOSS_QSO_clustering_*_v7_1_COMP_BOSS.ran.fits' are the randoms to be used for the 2PCF measurements of the eBOSS clustering catalogues. These are exactly the catalogues you can find on wiki except the two SEQUELS chunks that are removed and the WEIGHT_SYSTOT is rescaled by COMP_BOSS since the PIP weights already account for the completeness;
 
 **iii)** 'eBOSS_QSO_clustering_*GC_v7_1_ids.dat.fits': These are slightly different than the catalogues on wiki because I removed the SEQUELS area in NGC, added IMATCH=8 targets and added the EBOSS_TARGET_ID column. [Use EBOSS_TARGET_ID to match objects between the catalogues and the files containing the bitwise weights (the IDs are int64 type integers)].
-
-
- #weights_tiled_QSO_eBOSS_NGC_31x60_trimm_promoted_v7_no-obs.dat
- #weights_tiled_QSO_eBOSS_SGC_31x60_trimm_promoted_v7_no-obs.dat
  
  # My products
   DD_s_eBOSS_QSO_NGC_v7_1.fits ---> 19 bins from 40 kpc/h till ~200 Mpc/h
