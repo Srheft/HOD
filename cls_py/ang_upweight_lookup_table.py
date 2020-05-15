@@ -6,8 +6,9 @@ from astropy.table import Table
 import os, sys, glob
 from astropy.table import Table,Column
 from time import time
-#### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  at 0.8<z<2.2
+#### this directory the pairs of targets from 0 to 10 degress for the quasars in  NGC_QSO v7_2  [no redshift cut]
 path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/May2020/'
+outpath = path
 DDpath = path+'/DD_QSO_NGC_v7_2/'
 
 
@@ -129,4 +130,24 @@ if write_table:
     
 print('Finished writing the lookup Table of the angular upweights! took {} min'.format((time()-start)/60.)) 
     
+plot =True
+
+if plot:
+
+    import matplotlib.pylab as plt
+
+    a,h=fitsio.read(outpath+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'_ALLTARGETS.fits',header=True)
+
+    mids = (a['theta_min']+a['theta_max'])/2
+
+
+    plt.plot(mids,a['dd_par']/(a['dd_fib']),color='blue')
+    plt.plot(mids,a['AngUpWeight_wpip'],color='oramge')
+
+    plt.legend(['AngUpWeight (without PIP)','AngUpWeight_wpip (with PIP)'])
+    plt.xlabel('Angular separation [degrees]')
+    plt.ylabel('Angular upweight of DD pairs')
+
+    plt.savefig(outpath+'Angular_upweight'+str(max_ang)+'_'+str(binsize)+'_ALLTARGETS.png')
+    plt.show()
    
