@@ -185,7 +185,7 @@ if plot:
 
 
     plt.plot(mids,a['dd_par']/(a['dd_fib']),color='blue')
-    plt.plot(mids,a['AngUpWeight_wpip'],color='oramge')
+    plt.plot(mids,a['AngUpWeight_wpip'],color='orange')
 
     plt.legend(['AngUpWeight (without PIP)','AngUpWeight_wpip (with PIP)'])
     plt.xlabel('Angular separation [degrees]')
