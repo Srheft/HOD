@@ -173,5 +173,25 @@ if __name__ == '__main__':
   print('')
   print('')
   
+plot =True
+
+if plot: 
+
+    import matplotlib.pylab as plt
+
+    a,h=fitsio.read(outpath+'NGC_QSO_v7_2_AngUpWeight_lookupTable_upto'+str(max_ang)+'_'+str(binsize)+'_ALLTARGETS.fits',header=True)
+
+    mids = (a['theta_min']+a['theta_max'])/2
+
+
+    plt.plot(mids,a['dd_par']/(a['dd_fib']),color='blue')
+    plt.plot(mids,a['AngUpWeight_wpip'],color='oramge')
+
+    plt.legend(['AngUpWeight (without PIP)','AngUpWeight_wpip (with PIP)'])
+    plt.xlabel('Angular separation [degrees]')
+    plt.ylabel('Angular upweight of DD pairs')
+
+    plt.savefig(outpath+'Angular_upweight'+str(max_ang)+'_'+str(binsize)+'_ALLTARGETS.png')
+    plt.show()
   
     
