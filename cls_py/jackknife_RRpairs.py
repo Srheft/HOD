@@ -58,7 +58,7 @@ picut, pimax = 60, 60
 
 
 ###################################
-chunks = glob(path+'/RR_NGC_LRG_z0.6_z1.0/*.fits')
+chunks = glob(path+'/RR_NGC_LRG_z0.6_z1.0_downsampled/*.fits')
 
 logrper=np.linspace(-1.5,1.477,25)
 rpar=np.linspace(0,picut,picut)
@@ -66,7 +66,7 @@ rpar=np.linspace(0,picut,picut)
 nbin = len(logrper)-1
 edges = 10**logrper
 
-
+pixRRcount = np.zeros((len(uniqpix),nbin),float)
 
 for i,p in enumerate(uniqpix):
     
@@ -118,6 +118,7 @@ for i,p in enumerate(uniqpix):
         #         print('working on bin #{}'.format(j))
                 wrp = (rp < edges[j+1]) & (rp > edges[j])
                 cnt = np.sum(wrp)
+                pixRRcount[i,j] += cnt
 
                 if cnt > 0: 
         #             print(cnt)
@@ -141,9 +142,10 @@ for i,p in enumerate(uniqpix):
             
 
 
-    np.savez_compressed(path+'jkpix_LRG_NGC/RR_rp_pi_NGC_LRG_raw_pix'+str(p)+'.npz', array = rr_rppi_pix)
-    np.savez_compressed(path+'jkpix_LRG_NGC/RR_rp_pi_NGC_LRG_angup_pix'+str(p)+'.npz', array = wrr_rppi_pix)
-    
+    np.savez_compressed(path+'jkpix_LRG_NGC_downsampled/RR_rp_pi_NGC_LRG_raw_pix'+str(p)+'.npz', array = rr_rppi_pix)
+    np.savez_compressed(path+'jkpix_LRG_NGC_downsampled/RR_rp_pi_NGC_LRG_angup_pix'+str(p)+'.npz', array = wrr_rppi_pix)
+    np.savez_compressed(path+'Pixeled_RRcounts_LRG_NGC_'+str(len(uniqpix))+'pix'+str(nbin)+'rpbins.npz', array = pixRRcount)
+   
     print('finished this pix')
                     
                     
