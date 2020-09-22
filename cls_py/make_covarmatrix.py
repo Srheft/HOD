@@ -135,101 +135,115 @@ fullwp, wp_LS, xi, xi_LS, rpbinnedRRcount = getXi_wp(ddfile, drfile, rrfile, pic
 
 
 ##########################################################################   Getting RR pair count for all rp bins of each pixel
-rpbinpixRRcount = np.load(path + "Pixeled_RRcounts_LRG_NGC_86pix24rpbins.npz")['array']
+getRR_pixelated = True
 
-npix = len(uniqpix)
+if getRR_pixelated:
 
-cov = np.zeros((nbin,nbin),float)
+    chunks = glob(path+'/RR_NGC_LRG_z0.6_z1.0_downsampled/*.fits')
 
-for i in range(nbin):
-   
-    for j in range(nbin):
+    logrper=np.linspace(-1.5,1.477,25)
+    rpar=np.linspace(0,picut,picut)
 
-        cov[i][j] = get_cij(i, j, picut, npix, fullwp, pixeled_wp, rpbinnedRRcount, rpbinpixRRcount)
+    nbin = len(logrper)-1
+    edges = 10**logrper
 
-np.savez_compressed(path+'Covarianve_LRG_NGC_'+str(len(uniqpix))+'pix'+str(nbin)+'rpbins.npz', array = cov)
+    picut = 40
 
+    RAW_rpbinnedRRcount = np.zeros((len(uniqpix),nbin))
+    rpbinnedRRcount = np.zeros((len(uniqpix),nbin))
 
+    for i,p in enumerate(uniqpix[20:70]):
 
-chunks = glob(path+'/RR_NGC_LRG_z0.6_z1.0_downsampled/*.fits')
+        rpPIpixRRcount = np.zeros((picut,nbin))
+        Weighted_rpPIpixRRcount  = np.zeros((picut,nbin))
+        pixweit = weights[i]
 
-logrper=np.linspace(-1.5,1.477,25)
-rpar=np.linspace(0,picut,picut)
+        print('Excluding pixel {}, with weight {} '.format(p,pixweit))
 
-nbin = len(logrper)-1
-edges = 10**logrper
+        for f in chunks:
 
-picut = 40
+            rr,h = fitsio.read(f,header=True)
 
-rpbinnedRRcount = np.zeros((len(uniqpix),nbin))
+            m1 = rr['index1']
+            m2 = rr['index2']
+            pixnum1 = pix[m1]
+            pixnum2 = pix[m2]
 
-
-for i,p in enumerate(uniqpix[70:86]):
-
-    rpPIpixRRcount = np.zeros((picut,nbin))
-
-    pixweit = weights[i]
-
-    print('Excluding pixel {}, with weight {} '.format(p,pixweit))
-
-    for f in chunks:
-
-        rr,h = fitsio.read(f,header=True)
-
-        m1 = rr['index1']
-        m2 = rr['index2']
-        pixnum1 = pix[m1]
-        pixnum2 = pix[m2]
-
-        ind = (pixnum2 == p) | (pixnum1 == p)
+            ind = (pixnum2 == p) | (pixnum1 == p)
         
-        RR = np.zeros((picut,nbin))
+            RR = np.zeros((picut,nbin))
+            wRR = np.zeros((picut,nbin))
 
-        if np.sum(~ind) > 0:
 
-            rr_pix = rr[~ind]
+            if np.sum(~ind) > 0:
 
-            pii = abs(rr_pix['s1']-rr_pix['s2'])
+                rr_pix = rr[~ind]
 
-            pimax = (pii <= picut)
+                pii = abs(rr_pix['s1']-rr_pix['s2'])
 
-            rr_pix = rr_pix[pimax]
+                pimax = (pii <= picut)
 
-            theta = rr_pix['dist']*np.pi/180.
+                rr_pix = rr_pix[pimax]
 
-            pii = abs(rr_pix['s1']-rr_pix['s2'])
+                theta = rr_pix['dist']*np.pi/180.
 
-            rp = ((rr_pix['s1']+rr_pix['s2'])/2.)*theta
+                pii = abs(rr_pix['s1']-rr_pix['s2'])
 
-            for j in range(nbin):
+                rp = ((rr_pix['s1']+rr_pix['s2'])/2.)*theta
 
-                wrp = (rp < edges[j+1]) & (rp > edges[j])
-
-                cnt = np.sum(wrp)
-
-                rpbinnedRRcount[i,j] += cnt
-
-                if cnt > 0:
- 
-                    a = pii[wrp]
-
-                    arr = np.zeros(picut)
-
-                    for k in range(len(a)): 
-            
-                        arr[int(a[k])] += 1
+                wsys = rr_pix['w1w2']   ### (w1_tot*w1_sys*w1_FKP*w1_CP) x (w2_tot*w2_sys*w2_FKP*w2_CP)
                 
-                RR[:,j] = arr
+                weight = wsys
 
-        rpPIpixRRcount = rpPIpixRRcount + RR
+                for j in range(nbin):
 
-        np.savez_compressed(path+'Pixeled_RRcounts_LRG_NGC_pix'+str(p)+'_'+str(picut)+'pi_'+str(nbin)+'rpbins.npz', array = rpPIpixRRcount)
+                    wrp = (rp < edges[j+1]) & (rp > edges[j])
 
-    np.savez_compressed(path+'Pixeled_RRcounts_LRG_NGC_'+str(len(uniqpix))+'pix'+str(nbin)+'rpbins.npz', array = rpbinnedRRcount)
+                    cnt = np.sum(wrp)
 
-    print('finished this pix')
+                    RAW_rpbinnedRRcount[i,j] += cnt
+                    
+                    arr = np.zeros(picut)
+                    
+                    warr = np.zeros(picut)
 
+                    if cnt > 0:
+ 
+                        a = pii[wrp]
 
+                        allwei = weight[wrp] 
+
+                        rpbinnedRRcount[i,j] += np.sum(weight[wrp])
+
+                        arr = np.zeros(picut)
+
+                        warr = np.zeros(picut)
+
+                        for k in range(len(a)): 
+            
+                            arr[int(a[k])] += 1
+
+                            warr[int(a[k])] += 1*allwei[k]
+
+                    RR[:,j] = arr
+
+                    wRR[:,j] = warr
+
+            rpPIpixRRcount = rpPIpixRRcount + RR
+
+            Weighted_rpPIpixRRcount = Weighted_rpPIpixRRcount + wRR
+
+            np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/RR_rp_pi/RAW_Pixeled_RRrppi_LRG_NGC_pix'+str(p)+'_'+str(picut)+'pimax_'+str(nbin)+'rpbins.npz', array = rpPIpixRRcount)
+
+            np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/RR_rp_pi/WEIGHTED_Pixeled_RRrppi_LRG_NGC_pix'+str(p)+'_'+str(picut)+'pimax_'+str(nbin)+'rpbins.npz', array = Weighted_rpPIpixRRcount)
+
+        np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/RR_rp_pi/RAW_Pixeled_RRrp_LRG_NGC_'+str(len(uniqpix))+'pixels_'+str(nbin)+'rpbins.npz', array = RAW_rpbinnedRRcount)
+        np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/RR_rp_pi/WEIGHTED_Pixeled_RRrp_LRG_NGC_'+str(len(uniqpix))+'pixels_'+str(nbin)+'rpbins.npz', array = rpbinnedRRcount)
+
+        print('finished this pix')
+
+import sys
+sys.exit()
 ##############################################
 
 def make_covariance(picut, npix, fullwp, pixeled_wp, rpbinnedRRcount, pixRRcount):
@@ -243,7 +257,7 @@ def make_covariance(picut, npix, fullwp, pixeled_wp, rpbinnedRRcount, pixRRcount
      # npix = len(uniqpix)
      # 
 
-     cov = np.zeros((nbin,nbin))
+    cov = np.zeros((nbin,nbin))
 
     for i in range(nbin):
 
@@ -286,4 +300,126 @@ def plot_cov(input_cov):
     ax.savefig(path+'Normalized_covar_LRG_NGC.png')
 
 
+#######################################################  DD pair counts in pixels
+
+print('starting here ')
+chunks = glob(path+'/DD_NGC_LRG_z0.6_z1.0/*.fits')
+
+logrper=np.linspace(-1.5,1.477,25)
+rpar=np.linspace(0,picut,picut)
+
+nbin = len(logrper)-1
+edges = 10**logrper
+
+picut = 40
+
+rpbinnedDDcount = np.zeros((len(uniqpix),nbin))
+
+
+reg = 'NGC'
+tgt = 'LRG'
+angupfile = 'eBOSS_'+tgt+'_'+reg+'_AngUpWeight_lookupTable_upto0.0100000_1.12210_ALLTARGETS_new.fits'
+wei,h = fitsio.read(path+angupfile, header=True)
+
+wdd = wei['WDD_ANGUP']
+lang = wei['LANG']
+hang = wei['HANG']
+
+
+for i,p in enumerate(uniqpix):
+
+    rpPIpixDDcount = np.zeros((picut,nbin))
+
+    pixweit = weights[i]
+
+    print('Excluding pixel {}, with weight {} '.format(p,pixweit))
+
+    for f in chunks:
+
+        dd,h = fitsio.read(f,header=True)
+
+        m1 = dd['index1']
+        m2 = dd['index2']
+        pixnum1 = pix[m1]
+        pixnum2 = pix[m2]
+
+        ind = (pixnum2 == p) | (pixnum1 == p)
+
+        DD = np.zeros((picut,nbin))
+
+        if np.sum(~ind) > 0:
+
+            dd_pix = dd[~ind]
+
+            pii = abs(dd_pix['s1']-dd_pix['s2'])
+
+            pimax = (pii <= picut)
+
+            dd_pix = dd_pix[pimax]
+
+            theta = dd_pix['dist']*np.pi/180.
+
+            pii = abs(dd_pix['s1']-dd_pix['s2'])
+
+            rp = ((dd_pix['s1']+dd_pix['s2'])/2.)*theta
+
+            PIP = 1860./dd_pix['PIP']  ### equation 6 of Faizan's paper
+            wsys = dd_pix['w1w2']   ### (w1_tot*w1_sys*w1_FKP) x (w2_tot*w2_sys*w2_FKP)
+    
+            weight = wsys*PIP
+
+            DD = np.zeros((picut,nbin))
+            wDD = np.zeros((picut,nbin))
+            wpipDD = np.zeros((picut,nbin))
+
+            for j in range(nbin):
+
+                wrp = (rp < edges[j+1]) & (rp > edges[j])
+
+                cnt = np.sum(wrp)
+
+                rpbinnedDDcount[i,j] += cnt
+
+                arr = np.zeros(picut)
+                warr = np.zeros(picut)
+                wpiparr = np.zeros(picut)
+
+                if cnt > 0:
+
+                    a = pii[wrp]
+
+                    arr = np.zeros(picut)
+  
+                    allwei = weight[wrp] 
+                    syswei = wsys[wrp] 
+                    upws = np.ones(len(a))
+
+                    for l in range(len(lang)):
+   
+                        ii = (dd_pix['dist'][wrp] < hang[l]) & (dd_pix['dist'][wrp] > lang[l])
+
+                        upws[ii] *= wdd[l]
+
+
+                    rpbinnedDDcount[i,j] += np.sum(upws)
+
+                    for k in range(len(a)):
+
+                        warr[int(a[k])] += 1*syswei[k]*upws[k]
+
+                        wpiparr[int(a[k])] += 1*allwei[k]*upws[k]
+
+                        arr[int(a[k])] += 1
+
+                DD[:,j] = arr
+                wDD[:,j] = warr
+                wpipDD[:,j] = wpiparr
+
+        rpPIpixDDcount = rpPIpixDDcount + wDD
+
+        np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/DD_rp_pi/Pixeled_DDrppi_LRG_NGC_pix'+str(p)+'_'+str(picut)+'pi_'+str(nbin)+'rpbins.npz', array = rpPIpixDDcount)
+
+    np.savez_compressed(path+'/jkpix_LRG_NGC_downsampled/DD_rp_pi/Pixeled_DDrp_LRG_NGC_'+str(len(uniqpix))+'pix'+str(nbin)+'rpbins.npz', array = rpbinnedDDcount)
+
+    print('finished this pix')
 
