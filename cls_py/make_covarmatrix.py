@@ -84,7 +84,7 @@ def get_cij(i, j, pimax, npix, fullwp, pixeled_wp, rpbinnedRRcount, rpbinpixRRco
 ######################################################################### Getting pixel number
 
 nside = 8
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+path = '/utahpath/July2020/'
 random = 'eBOSS_LRG_NGC_pip_v7_2_ran_withS.fits'
 
 r = fitsio.read(path+random)
@@ -100,7 +100,7 @@ RRpath = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/jkp
 
 rrs = glob(RRpath+'/RR*_raw_pix*.npz')
 
-DDpath = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/jkpix_LRG_NGC/'
+DDpath = '/utahpath/July2020/jkpix_LRG_NGC/'
 
 dds = glob(DDpath+'/DD*_angup_pix*.npz')
 
@@ -126,7 +126,7 @@ def get_pixeled_wp(RRpath,DDpath,uniqpix):
     return pixeled_wp
 ######################################################################  Getting full wp before pixelation
 
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+path = '/u/July2020/'
 ddfile = path + 'DD_rp_pi_NGC_LRG_angup.npz' 
 drfile = path + 'DR_rp_pi_NGC_LRG_raw_downsampled.npz'
 rrfile = path + 'RR_rp_pi_NGC_LRG_downsampled.npz'
