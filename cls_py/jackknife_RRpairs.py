@@ -39,7 +39,7 @@ def get_pixnum(ra,dec,nside):
 
 ###########################################################
 nside = 8
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+path = '/utahsystem/July2020/'
 data = 'eBOSS_LRG_NGC_pip_v7_2_new.dat.fits'
 random = 'eBOSS_LRG_NGC_pip_v7_2_ran_withS.fits'
 
