@@ -41,7 +41,7 @@ def angleto3Dradius(angle, isDegree=True):
       
 if __name__ == '__main__':
   
-  path='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+  path='/utahpath/July2020/'
 
   filename = 'eBOSS_LRG_NGC_pip_v7_2_new_withS_z0.6_z1.0.fits'
   a = fitsio.read(filename)
