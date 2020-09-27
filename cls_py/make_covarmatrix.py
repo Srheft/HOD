@@ -76,7 +76,7 @@ def get_cij(i, j, pimax, npix, fullwp, pixeled_wp, rpbinnedRRcount, rpbinpixRRco
     
     for L in range(npix):
         
-        cij += (rpbinpixRRcount[L][i]/rpbinnedRRcount[i])*(pixeled_wp[L][i]-fullwp[i])*(rpbinpixRRcount[L][j]/rpbinnedRRcount[j])*(pixeled_wp[L][j]-fullwp[j])
+        cij += np.sqrt(rpbinpixRRcount[L][i]/rpbinnedRRcount[i])*(pixeled_wp[L][i]-fullwp[i])*np.sqrt(rpbinpixRRcount[L][j]/rpbinnedRRcount[j])*(pixeled_wp[L][j]-fullwp[j])
         
     return cij    
        
