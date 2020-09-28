@@ -96,7 +96,7 @@ pix, uniqpix, weights = get_pixnum(rra,rdec,nside)
 picut = 40
 
 
-RRpath = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/jkpix_LRG_NGC_downsampled/'
+RRpath = '/utahsystem/jkpix_LRG_NGC_downsampled/'
 
 rrs = glob(RRpath+'/RR*_raw_pix*.npz')
 
