@@ -54,9 +54,6 @@ LRGs and QSO overlap in 0.8 < z < 1.0
   These are ASCII files with columns EBOSS_TARGET_ID, RA, DEC, Z (neglect Z) and a sequence of 60 columns that contain the bitwise weights resulting from the 1860 fiber assignment runs. The first bit in the first of these 60 columns is the outcome of the actual eBOSS tiling run while the remaining bits are random realizations of the tiling. 
 
 
-see the catalog analysis here /git_repo/HOD/catalogs.ipynb
-/git_repo/HOD/catalogs.ipynb
-/git_repo/HOD/weighted_DD.ipynb
 
 # Findings
 - see cls_nb for redshift distribution difference between v7_1 and v7_2;
