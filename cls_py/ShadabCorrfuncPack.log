@@ -1,6 +1,19 @@
+
+II - export and then echo these env variables:
+
+     $datadir
+     $jnroot
+     $xi2droot
+     $xi02root
+     $pcroot
+
+III - edit the config.ini file (config_sarah.ini):
+   in the last line, edit the jnfile name format for the redshift limits of the sample (zlim is 0.6 and 1.0)
+
+
 1- Set up the jacknife regions
 
-python Jacknife_region_2D_keys.py -r1 eBOSS_LRG_NGC_pip_v7_2_ran_withS_z0.6_z1.0_downsampled.fits -NjackRA 15 -NjackDEC 6 -ax1 RA -ax2 DEC -odir $jnroot
+python Jacknife_region_2D_keys.py -r1 eBOSS_LRG_NGC_pip_v7_2_ran_withS_z0.6_z1.0_downsampled.fits -NjackRA 15 -NjackDEC 6 -ax1 RA -ax2 DEC -odir $jnroot/eBOSS_LRG_NGC
 _________________________________________________________________________
 2- Run the pair count
 
