@@ -1,13 +1,14 @@
 
-II - export and then echo these env variables:
+I - export and then echo these env variables:
 
      $datadir
      $jnroot
      $xi2droot
      $xi02root
      $pcroot
+     
 
-III - edit the config.ini file (config_sarah.ini):
+II - edit the config.ini file (config_sarah.ini):
    in the last line, edit the jnfile name format for the redshift limits of the sample (zlim is 0.6 and 1.0)
 
 
