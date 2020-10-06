@@ -59,7 +59,7 @@ if __name__ == '__main__':
   w = w[indices]
  
   # Python equivalent of matchlength
-  radius_in_deg = 3.0  # degrees
+  radius_in_deg = 7.0  # degrees
   
   size = len(ra)
   doJob = True
@@ -98,7 +98,7 @@ if __name__ == '__main__':
 
         PIP_fib = np.ones(len(m1))*1860.
 
-        ll = (distance < 0.1) ####    0.1 deg at z=07-07 is ~1-2 Mpc/h which is the scale that PIP anf ANG upweghts are effective
+        ll = (distance < 1.0) ####    0.1 deg at z=0.6 is ~1-2 Mpc/h which is the scale that PIP and ANG upweghts are effective
         PIP_fib[ll] = 0         
 
         num = np.sum(ll)
