@@ -126,7 +126,7 @@ def get_pixeled_wp(RRpath,DDpath,uniqpix):
     return pixeled_wp
 ######################################################################  Getting full wp before pixelation
 
-path = '/u/July2020/'
+path = '/utahpath/July2020/'
 ddfile = path + 'DD_rp_pi_NGC_LRG_angup.npz' 
 drfile = path + 'DR_rp_pi_NGC_LRG_raw_downsampled.npz'
 rrfile = path + 'RR_rp_pi_NGC_LRG_downsampled.npz'
