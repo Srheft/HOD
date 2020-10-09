@@ -5,29 +5,30 @@ from astropy.table import Column
 from astropy.table import Table
 from math import cos,pi,log10
 import matplotlib.pylab as plt
-import healpy as hp
 import pylab as py
-from desitarget.geomask import radec_match_to
-from functools import reduce
 from astrometry.libkd import spherematch
-
 #gmpy is A C-coded Python extension module that wraps the GMP library.
 import gmpy
 
-#### To RUN: python angupweight.py 'eBOSS_LRG_SGC_pip_v7_2.dat.fits' 'log'
+''' Example of runninf syntax: python angupweight.py 'eBOSS_LRG_SGC_pip_v7_2.dat.fits' 'log' 0.3
+
+    NOTE: - Make sure the target catalog that is used is not cut to any specofic redshift range 
+          - Make sure that the catalog is not limited to targets from the clustering set or the
+          targets that have been spectroscopically identifed as the desired target class (i.e., ELG, LRG, QSO). 
+          Keep everything given in the parent catalog.
+          
+          examples: 
+              'eBOSS_LRG_SGC_pip_v7_2.dat.fits'
+              'eBOSS_ELG_NGC_pip_v7.dat.fits'
+              'eBOSS_QSO_SGC_pip_v7_2_new.dat.fits'
+'''
+
 
 path='/utahpath/'
 
 outpath = path
 
 inputfile = sys.argv[1]
-
-
-''' target file should not be cut to any redshift range 
-    examples: 'eBOSS_LRG_SGC_pip_v7_2.dat.fits'
-              'eBOSS_ELG_NGC_pip_v7.dat.fits'
-              'eBOSS_QSO_SGC_pip_v7_2_new.dat.fits'
-'''
 
 filename = path+inputfile
 
@@ -37,20 +38,19 @@ tgt = filename.split(path)[1].split('_pip')[0]
 
 catalog,h = fitsio.read(filename, header = True)
 
-max_ang = 0.3#3.0
+max_ang = sys.argv[3]
 
 if binning=='log':
      binsize=''
+     hedges = np.logspace(-2,np.log10(max_ang),30)
+     ledges = np.asarray([0]+list(hedges[0:len(hedges)-1]))
+     seps = hedges 
+
 elif binning=='linear':
      binsize=0.003
-
-#ledges = np.round(np.arange(0,max_ang,binsize),3)
-#hedges = np.round(np.arange(binsize,binsize+max_ang,binsize),3)
-#mids = np.round((ledges+hedges)/2,3)
-
-hedges = np.logspace(-2,np.log10(max_ang),30)
-ledges = np.asarray([0]+list(hedges[0:len(hedges)-1]))
-seps = hedges #[0.003]
+     ledges = np.round(np.arange(0,max_ang,binsize),3)
+     hedges = np.round(np.arange(binsize,binsize+max_ang,binsize),3)
+     mids = np.round((ledges+hedges)/2,3)
 
 avg_pip_bin = np.zeros(len(hedges))
 
@@ -112,10 +112,6 @@ for k,sep in enumerate(seps):
 
       print('wDD_ang= DD_par/DD_fib_PIP= ',num_par/DD_fib_PIP)  ### definition in equation 9 of PIP paper
 
-      #print('PIP-weighted pair counts is ', np.sum(1860./PIP_fib))
-
-      #print('Average PIP weight for this bin:',np.sum(1860./PIP_fib)/num_fib )# ????? thi sis not what equation 9 of PIP paper 
-
       avg_pip_bin[k] = np.sum(1860./PIP_fib)
 
       DD_fib[k] = num_fib
@@ -125,8 +121,6 @@ for k,sep in enumerate(seps):
       wDD_angup[k] = num_par/DD_fib_PIP 
      
 write_table = True
-
-
 
 if write_table:
 
