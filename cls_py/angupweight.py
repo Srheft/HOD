@@ -16,7 +16,7 @@ import gmpy
 
 #### To RUN: python angupweight.py 'eBOSS_LRG_SGC_pip_v7_2.dat.fits' 'log'
 
-path='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+path='/utahpath/'
 
 outpath = path
 
