@@ -1,10 +1,10 @@
 from glob import glob
 import time, fitsio, numpy as np
 
-picut = 1000
+picut = 40
 
 ##### Shadab's binning 
-#rper (rp)  in log bin with   bin edges as 
+#rper (rp)  in log bin with bin edges as 
 logrper=np.linspace(-1.5,1.477,25)
 #rpar (pi) in linear bin with bin edges by 
 rpar=np.linspace(0,picut,picut+1)
@@ -14,7 +14,7 @@ rpar=np.linspace(0,picut,picut+1)
 reg = 'NGC'
 tgt = 'LRG'
 angupfile = 'eBOSS_'+tgt+'_'+reg+'_AngUpWeight_lookupTable_upto0.0100000_0.105929_ALLTARGETS_DR.fits' 
-path = '/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/July2020/'
+path = '/utahpath/July2020/'
 
 wei,h = fitsio.read(path+angupfile, header=True)
 
