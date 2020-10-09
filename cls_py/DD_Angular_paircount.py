@@ -11,30 +11,9 @@ import random, fitsio
 from numpy import radians, degrees, sin, cos, arctan2, hypot
 from astropy.io import fits
 import gmpy
+### to run on a single cpu:
+#python DD_Angular_paircount.py 1 0 0 
 
-#python data_data_srh.py 1 0 0 for a single cpu 
-
-
-## If you are going to use 
-## k3match, uncomment this line 
-#from k3match import *
-#################################################################
-
-
-#################################################################
-def my_shuffle(array):
-        random.seed(0)
-        random.shuffle(array)
-        return array
-#################################################################
-
-def angleto3Dradius(angle, isDegree=True):
-  
-  if isDegree:
-    angle = angle*pi/180.
-  
-  
-  return sqrt((sin(angle))**2 + (1-cos(angle))**2)
 
 #################################################################
 
@@ -49,7 +28,7 @@ if __name__ == '__main__':
   dec = a['DEC']
   #pix = a['PIXEL']
   s = a['s']
-  ### w=w_SYSTOT*w_FKP*w_NOZ
+  ### for DD and DR pairs, only three of the weights are going to be use[see PIP paper]: w=w_SYSTOT*w_FKP*w_NOZ
   w = a['WEIGHT_SYSTOT']*a['WEIGHT_FKP']*a['WEIGHT_NOZ']
 
   indices = np.arange(len(ra))
@@ -98,7 +77,7 @@ if __name__ == '__main__':
 
         PIP_fib = np.ones(len(m1))*1860.
 
-        ll = (distance < 1.0) ####    0.1 deg at z=0.6 is ~1-2 Mpc/h which is the scale that PIP and ANG upweghts are effective
+        ll = (distance < 1.0) ####  the angular scale over which PIP and ANGULAR upweghts are effective is way smaller than 1 degrees at the redshift range of eboss samples
         PIP_fib[ll] = 0         
 
         num = np.sum(ll)
@@ -130,17 +109,11 @@ if __name__ == '__main__':
 	# M: Double-precision Complex
 	# A: Character
         
-        #col1 = fits.Column(name='ra1', format='D', array=ra[m1_2])
-        #col2 = fits.Column(name='dec1', format='D', array=dec[m1_2])
         col1 = fits.Column(name='index1', format='K', array=m1_2)
-        #col4 = fits.Column(name='ra2', format='D', array=ra[m2])
-        #col5 = fits.Column(name='dec2', format='D', array=dec[m2])
         col2 = fits.Column(name='index2', format='K', array=m2)
         col3 = fits.Column(name='dist', format='D', array=distance)
         col4 = fits.Column(name='w1', format='D', array=w[m1_2])
         col5 = fits.Column(name='w2', format='D', array=w[m2])
-        #col6 = fits.Column(name='pix1',format='K',array=pix[m1_2])
-        #col7 = fits.Column(name='pix2',format='K',array=pix[m2])
         col6 = fits.Column(name='s1',format='D',array=s[m1_2])
         col7 = fits.Column(name='s2',format='D',array=s[m2])
         col8 = fits.Column(name='w1w2',format='D',array=w[m1_2]*w[m2])
@@ -150,7 +123,7 @@ if __name__ == '__main__':
         tbhdu = fits.BinTableHDU.from_columns(cols)
 	
 	# clobber = True  (it overwrites/updates)
-        tbhdu.writeto('./DD_NGC_LRG_z0.6_z1.0/spherematch.'+str(int(n))+'_DD.fits', clobber=True)
+        tbhdu.writeto(path+'/DD_NGC_LRG_z0.6_z1.0/spherematch.'+str(int(n))+'_DD.fits', clobber=True)
       
       #######################     
       
