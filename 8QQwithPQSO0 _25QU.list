@@ -14,6 +14,9 @@
                      0     1339617       130.50968       51.282407
 
 --------------------------------------------------------------------------------
+### NOTE: A zwarning of "unplugged" is definitely reason to reject, but some of the others are good spectra and flagged due to low deltachisq.
+I looked at the DR16Q catalog and they appear with zwarn_pca=0 and a seemingly good redshift.
+
 #No
 BOSS_TARGET1
 BOSS_TARGET2
