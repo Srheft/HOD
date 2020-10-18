@@ -8,3 +8,14 @@ Associated papers:
 
 
         ** https://arxiv.org/pdf/2007.09001.pdf
+
+CLASS_PERSON ---> visual inspectiion classification
+# 0 Not Inspected
+# 1 Star
+# 3 Quasar 
+# 4 Galaxy
+# 30 BAL Quasar 
+# 50 Blazar(?)   -->  four spectra we identified with high
+#                     flux, continua matching an archetypal quasar continuum
+#                     shape, and no identifiable absorption or emission features. 
+
