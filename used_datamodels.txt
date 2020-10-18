@@ -2,5 +2,9 @@ For DR16 quasars:
 
 https://data.sdss.org/datamodel/files/BOSS_QSO/DR16Q/DR16Q_v4.html
 
-Associated paper: Ross et al 2020 ->Title:  Large-scale Structure Catalogs for Cosmological Analysis of the
-completed extended Baryon Oscillation Spectroscopic Survey
+Associated papers: 
+
+        * Ross et al 2020 ->Title:  Large-scale Structure Catalogs for Cosmological Analysis of the completed extended Baryon Oscillation Spectroscopic Survey
+
+
+        ** https://arxiv.org/pdf/2007.09001.pdf
