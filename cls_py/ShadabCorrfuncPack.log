@@ -24,7 +24,7 @@ checkout the results
 _________________________________________________________________________
 2- Run the pair count
 
-python Runme_Correlation.py -config_file ./config_sarah.ini
+python Runme_Correlation.py -config_file ./config_sarah_wpip.ini
 __________________________________________________________________________
 3- Convert pair count to desired measurements
 
