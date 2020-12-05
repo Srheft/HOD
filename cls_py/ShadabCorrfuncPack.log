@@ -8,7 +8,7 @@ I - export and then echo these env variables:
      $pcroot
      
 
-II - edit the config.ini file (config_sarah.ini):
+II - edit the config.ini file (config_sarah_wpip.ini):
    in the last line, edit the jnfile name format for the redshift limits of the sample (zlim is 0.6 and 1.0)
 
 _________________________________________________________________________
@@ -24,7 +24,7 @@ checkout the results
 _________________________________________________________________________
 2- Run the pair count
 
-python Runme_Correlation.py -config_file ./config_sarah_wpip.ini
+python Runme_Correlation.py -config_file ./config/config_sarah_wpip.ini
 __________________________________________________________________________
 3- Convert pair count to desired measurements
 
