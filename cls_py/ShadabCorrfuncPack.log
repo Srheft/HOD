@@ -2,9 +2,7 @@
 I - export and then echo these env variables:
 
      $datadir
-     $jnroot
      $xi2droot
-     $xi02root
      $pcroot
      
 mkdir $datadir/JN/
@@ -12,8 +10,7 @@ mkdir -p $datadir/XI/PairCount/
 mkdir $datadir/XI/XI02/ 
 mkdir $datadir/WP/
 mkdir $datadir/XI2D/
-
-mkdir $datadir/jnk/abc-wpip-wsys-newnorm/
+mkdir $datadir/jnk/
 
 rm calc.c
 python setup.py build_ext --inplace
@@ -36,10 +33,8 @@ checkout the results
 _________________________________________________________________________
 2- Run the pair count
 
-python Runme_Correlation.py -config_file ./config/config_sarah_wpip.ini --> the configuration file does not recognize the jnfile so I had to inserrt it manually 
-python Runme_Correlation.py -config_file ./config/config_sarah_wpip.ini -jnfile /uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/MultiHODFitter/JN/eBOSS_LRG_NGC-zlim-0.6-1.0-Border_RA-DEC_JN-15-6_v1.txt
-
+python Runme_Correlation.py -config_file config/config_sarah_wpip.ini -jnfile /uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/MultiHODFitter/JN/eBOSS_LRG_NGC-zlim-0-0-Border_RA-DEC_JN-15-6_v1.txt
 __________________________________________________________________________
 3- Convert pair count to desired measurements
 
-python PairCountTOxi.py -sampmode 3 -plots 1 -pcroot ./XI/PairCount/lrg-ngc -xi2droot ./XI/XI2D/lrg-ngc -xi02root ./XI/WP/lrg-ngc -njn 90
+python PairCountTOxi.py -sampmode 3 -plots 1 -pcroot jnk/abc-wpip-wsys-newnorm -xi2droot XI2D/abc -xi02root ./ -njn 90 -pip 1 
