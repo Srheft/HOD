@@ -7,16 +7,26 @@ I - export and then echo these env variables:
      $xi02root
      $pcroot
      
+mkdir $datadir/JN/
+mkdir -p $datadir/XI/PairCount/
+mkdir $datadir/XI/XI02/ 
+mkdir $datadir/XI/WP/
+mkdir $datadir/XI/XI02/
+mkdir $datadir/jnk/abc-wpip-wsys-newnorm/
+rm calc.c
+python setup.py build_ext --inplace
 
-II - edit the config.ini file (config_sarah_wpip.ini):
+
+II - edit the configuration [config/*.ini] file (config_sarah_wpip.ini):
    in the last line, edit the jnfile name format for the redshift limits of the sample (zlim is 0.6 and 1.0)
-
+data='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/MultiHODFitter/eBOSS_LRG_NGC_pip_v7_2_new_withS_z0.6_z1.0.fits'
+rand='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/MultiHODFitter/eBOSS_LRG_NGC_pip_v7_2_ran_withS_z0.6_z1.0_downsampled.fits
 _________________________________________________________________________
 1- Set up the jacknife regions
 
 python Jacknife_region_2D_keys.py -r1 eBOSS_LRG_NGC_pip_v7_2_ran_withS_z0.6_z1.0_downsampled.fits \\
--NjackRA 15 -NjackDEC 6 -ax1 RA -ax2 DEC -odir $jnroot/eBOSS_LRG_NGC -z1 0.6 -z2 1.0
-
+-NjackRA 15 -NjackDEC 6 -ax1 RA -ax2 DEC -odir $datadir/JN/eBOSS_LRG_NGC #-z1 0.6 -z2 1.0
+python Jacknife_region_2D_keys.py -r1 eBOSS_LRG_NGC_pip_v7_2_ran_withS_z0.6_z1.0_downsampled.fits -NjackRA 15 -NjackDEC 6 -ax1 RA -ax2 DEC -odir $datadir/JN/eBOSS_LRG_NGC
 
 checkout the results 
   - normalized histograms of randoms in each hour [15 deg] in RA]: > ls $jnroot/*.png
