@@ -10,9 +10,11 @@ I - export and then echo these env variables:
 mkdir $datadir/JN/
 mkdir -p $datadir/XI/PairCount/
 mkdir $datadir/XI/XI02/ 
-mkdir $datadir/XI/WP/
-mkdir $datadir/XI/XI02/
+mkdir $datadir/WP/
+mkdir $datadir/XI2D/
+
 mkdir $datadir/jnk/abc-wpip-wsys-newnorm/
+
 rm calc.c
 python setup.py build_ext --inplace
 
