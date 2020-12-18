@@ -1,7 +1,11 @@
 
-I - export and then echo these env variables:
+I - export and then echo datadir:
+export datadir='/uufs/chpc.utah.edu/common/home/astro/dawson/sarahE/eboss/MultiHODFitter/'
 
-     $datadir
+echo  $datadir
+
+
+once $datadir is set,these two have to be subdirectories of datadir and should have been set [in my .bashrc] 
      $xi2droot
      $pcroot
      
