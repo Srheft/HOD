@@ -41,4 +41,4 @@ python Runme_Correlation.py -config_file config/config_sarah_wpip.ini -jnfile /u
 __________________________________________________________________________
 3- Convert pair count to desired measurements
 
-python PairCountTOxi.py -sampmode 3 -plots 1 -pcroot jnk/abc-wpip-wsys-newnorm -xi2droot XI2D/abc -xi02root ./ -njn 90 -pip 1 
+python PairCountTOxi.py -config_file config/config_sarah_wpip.ini 
